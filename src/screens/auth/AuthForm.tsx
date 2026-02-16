@@ -24,13 +24,30 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
         navigate('/home')
     }
 
-    const handleRegisteration = () => {
-        navigate('/auth/reg')
+    const handleNavigation = () => {
+        if (screen == "login") {
+            navigate('/auth/reg')
+        } else {
+            navigate('/auth')
+        }
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+                {screen == "reg" && <>
+                    <label>Name</label>
+                    <input
+                        placeholder="John Doe"
+                        className={styles.input}
+                        {...register("name", {
+                            required: true,
+                            pattern: /^[A-Za-zÀ-ÖØ-öø-ÿ]+([ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/,
+                            minLength: { value: 2, message: "Name must be at least 2 characters" },
+                            maxLength: { value: 50, message: "Name cannot exceed 50 characters" }
+                        })} />
+                    {(errors?.name?.message || errors?.name) && <p className={styles.formError}>Enter a valid name</p>}
+                </>}
                 <label>Email</label>
                 <input
                     placeholder="name@example.com"
@@ -50,21 +67,32 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
                     })} />
                 {(errors?.password?.message || errors?.password) && <p className={styles.formError}>Enter a valid password</p>}
-                <label className={styles.checkboxWrapper}>
-                    <input type="checkbox" {...register("rememberMe")} />
-                    <span className={styles.customCheckbox}></span>
-                    Remember me
-                </label>
-                <button type="submit" className={styles.btn}>Sign In</button>
+                {screen == "login" && <>
+                    <label className={styles.checkboxWrapper}>
+                        <input type="checkbox" {...register("rememberMe")} />
+                        <span className={styles.customCheckbox}></span>
+                        Remember me
+                    </label>
+                </>}
+                <button type="submit" className={styles.btn}>{screen == 'login' ? "Sign In" : "Create Account"}</button>
             </form >
-            <p className={styles.dividerText}>Or continue with</p>
-            <div className={styles.btnContainer}>
-                <button className={styles.socialLoginBtn}><FcGoogle size={26} /> Google</button>
-                <button className={styles.socialLoginBtn}><IoLogoFacebook size={26} color="#2563EB" /> Facebook</button>
-            </div>
+            {screen == "login" ?
+                <>
+                    <p className={styles.dividerText}>Or continue with</p>
+                    <div className={styles.btnContainer}>
+                        <button className={styles.socialLoginBtn}><FcGoogle size={26} /> Google</button>
+                        <button className={styles.socialLoginBtn}><IoLogoFacebook size={26} color="#2563EB" /> Facebook</button>
+                    </div>
+                </>
+                : <>
+                    <div>
+                        <p>Password requirements:</p>
+                        
+                    </div>
+                </>}
             <div className={styles.horizontalLine}></div>
             <div className={styles.formFooter}>
-                <p>Don't have an account? <span className={styles.quickLink} onClick={handleRegisteration}>Create an account <FaArrowRight className={styles.rightArrow} /></span></p >
+                <p>{screen == 'login' ? "Don't have an account?" : "Already have an account?"} <span className={styles.quickLink} onClick={handleNavigation}>{screen == 'login' ? "Create an account" : "Sign in here"} <FaArrowRight className={styles.rightArrow} /></span></p >
             </div>
         </div>
 
