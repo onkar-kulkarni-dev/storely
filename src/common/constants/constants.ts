@@ -1,0 +1,1 @@
+export const NO_LAYOUT_PAGES = ['/auth', '/auth/reg']
