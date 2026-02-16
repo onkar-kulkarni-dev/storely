@@ -32,8 +32,9 @@ const Home = () => {
     return (
         <>
             {HOME_GRIDS.map((grid: string) => {
+                const data = productsData(grid)
                 return (
-                    <div key={grid}>
+                    data?.length > 0 && <div key={grid}>
                         <div className={styles.headerContainer}>
                             <h2>{grid}</h2>
                             <p className={styles.viewMore}>View More</p>
