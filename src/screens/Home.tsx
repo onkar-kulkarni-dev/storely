@@ -21,9 +21,9 @@ const Home = () => {
             case 'Best Seller':
                 return bestSellerProducts;
             case 'Recommended':
-                return trendingProducts;
-            case 'Trending':
                 return recommendedProducts;
+            case 'Trending':
+                return trendingProducts;
             default:
                 return []
         }
