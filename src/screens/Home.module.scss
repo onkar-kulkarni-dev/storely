@@ -1,0 +1,15 @@
+@import '../../src/common/UI/colors';
+
+.headerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.viewMore{
+    font-size: 14px;
+    text-decoration: underline;
+    color: $blue;
+    cursor: pointer;
+}

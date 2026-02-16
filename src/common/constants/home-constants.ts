@@ -1,0 +1,1 @@
+export const HOME_GRIDS = ['New Arrival', 'Best Seller', 'Recommended', 'Trending']
