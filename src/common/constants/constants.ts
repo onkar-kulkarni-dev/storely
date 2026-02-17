@@ -1,4 +1,4 @@
-export const NO_LAYOUT_PAGES = ['/auth', '/auth/reg']
+export const NO_LAYOUT_PAGES = ['/auth', '/auth/reg', '/auth/forgot-password']
 
 export const PASSWORD_CRITERIA = [
     { id: 1, name: "8+ characters", status: false },

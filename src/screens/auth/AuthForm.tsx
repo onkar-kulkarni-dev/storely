@@ -10,9 +10,10 @@ import { toast } from "react-toastify";
 
 type Props = {
     screen: string
+    setForgotPasswordLinkSent?: any
 }
 
-const AuthForm: React.FC<Props> = ({ screen }) => {
+const AuthForm: React.FC<Props> = ({ screen, setForgotPasswordLinkSent = () => { } }) => {
 
     const navigate = useNavigate()
     const {
@@ -24,27 +25,31 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
 
     const [criteria, setCriteria] = useState(PASSWORD_CRITERIA);
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const onSubmit = (data: any) => {
-        toast.success(screen == "login" ? "Logged in!" : 'Account created successfully!', {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
+        if (screen != "forgotPassword") {
+            toast.success(screen == "login" ? "Logged in!" : 'Account created successfully!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
 
-        setTimeout(() => {
-            if (screen == "reg") {
-                navigate('/')
-            } else {
-                navigate('/home')
-            }
-        }, 2000);
+            setTimeout(() => {
+                if (screen == "reg") {
+                    navigate('/')
+                } else {
+                    navigate('/home')
+                }
+            }, 2000);
+        } else {
+            setForgotPasswordLinkSent(true)
+        }
     }
 
     const handleNavigation = () => {
@@ -77,6 +82,10 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
         });
         setCriteria(updatedCriteria);
     }, [passwordValue])
+
+    const handleForgotPassword = () => {
+        navigate('/auth/forgot-password')
+    }
 
     return (
         <div>
@@ -138,9 +147,12 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                                 <p className={styles.formError}>Passwords do not match</p>}
                         </div>
                     </div>
-                ) : (
+                ) : screen == "login" ? (
                     <>
-                        <label>Password</label>
+                        <div className={styles.passwordTextContainer}>
+                            <label>Password</label>
+                            <p className={styles.quickLink} onClick={handleForgotPassword}>Forgot Password</p>
+                        </div>
                         <div className={styles.passwordContianer}>
                             <input
                                 placeholder="Enter your password"
@@ -156,7 +168,7 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                         {(errors?.password?.message || errors?.password) &&
                             <p className={styles.formError}>Enter a valid password</p>}
                     </>
-                )}
+                ) : null}
 
                 {screen == "login" && <>
                     <label className={styles.checkboxWrapper}>
@@ -173,7 +185,7 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                         })}
                     </div>
                 </>}
-                <button type="submit" className={styles.btn}>{screen == 'login' ? "Sign In" : "Create Account"}</button>
+                <button type="submit" className={styles.btn}>{screen == 'login' ? "Sign In" : screen == "reg" ? "Create Account" : "Send Link"}</button>
             </form >
             {screen == "login" &&
                 <>
@@ -184,10 +196,12 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                     </div>
                 </>
             }
-            <div className={styles.horizontalLine}></div>
-            <div className={styles.formFooter}>
-                <p>{screen == 'login' ? "Don't have an account?" : "Already have an account?"} <span className={styles.quickLink} onClick={handleNavigation}>{screen == 'login' ? "Create an account" : "Sign in here"} <FaArrowRight className={styles.rightArrow} /></span></p >
-            </div>
+            {screen == "login" || screen == "reg" ? <>
+                <div className={styles.horizontalLine}></div>
+                <div className={styles.formFooter}>
+                    <p>{screen == 'login' ? "Don't have an account?" : "Already have an account?"} <span className={styles.quickLink} onClick={handleNavigation}>{screen == 'login' ? "Create an account" : "Sign in here"} <FaArrowRight className={styles.rightArrow} /></span></p >
+                </div>
+            </> : null}
         </div>
 
     )

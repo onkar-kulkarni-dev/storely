@@ -196,3 +196,17 @@
         font-weight: 600;
     }
 }
+
+.passwordTextContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .quickLink {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        color: $formActiveBorder;
+        cursor: pointer;
+    }
+}

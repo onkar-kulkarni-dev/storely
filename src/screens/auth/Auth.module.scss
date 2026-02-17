@@ -31,3 +31,13 @@
 .logo {
     width: 10rem;
 }
+
+.backToSignInBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: $formActiveBorder;
+    margin: 2rem 0;
+    cursor: pointer;
+}
