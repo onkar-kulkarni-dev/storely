@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './AuthForm.module.scss';
 import { useForm, SubmitHandler } from "react-hook-form"
 import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoFacebook } from "react-icons/io5";
+import { PASSWORD_CRITERIA } from "../../common/constants/constants";
+import { toast } from "react-toastify";
 
 type Props = {
     screen: string
@@ -20,8 +22,29 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
         formState: { errors },
     } = useForm()
 
+    const [criteria, setCriteria] = useState(PASSWORD_CRITERIA);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
     const onSubmit = (data: any) => {
-        navigate('/home')
+        toast.success(screen == "login" ? "Logged in!" : 'Account created successfully!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+
+        setTimeout(() => {
+            if (screen == "reg") {
+                navigate('/')
+            } else {
+                navigate('/home')
+            }
+        }, 2000);
     }
 
     const handleNavigation = () => {
@@ -31,6 +54,29 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
             navigate('/auth')
         }
     }
+
+    const passwordValue = watch('password')
+    console.log(passwordValue)
+
+    useEffect(() => {
+        const updatedCriteria = PASSWORD_CRITERIA.map(item => {
+            switch (item.id) {
+                case 1:
+                    return { ...item, status: passwordValue?.length >= 8 };
+                case 2:
+                    return { ...item, status: /\d/.test(passwordValue) };
+                case 3:
+                    return { ...item, status: /[^A-Za-z0-9]/.test(passwordValue) };
+                case 4:
+                    return { ...item, status: /[a-z]/.test(passwordValue) };
+                case 5:
+                    return { ...item, status: /[A-Z]/.test(passwordValue) };
+                default:
+                    return item;
+            }
+        });
+        setCriteria(updatedCriteria);
+    }, [passwordValue])
 
     return (
         <div>
@@ -57,16 +103,61 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                         pattern: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
                     })} />
                 {(errors?.email?.message || errors?.email) && <p className={styles.formError}>Enter a valid Email address</p>}
-                <label>Password</label>
-                <input
-                    placeholder="Enter your password"
-                    className={styles.input}
-                    type="password"
-                    {...register("password", {
-                        required: true,
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-                    })} />
-                {(errors?.password?.message || errors?.password) && <p className={styles.formError}>Enter a valid password</p>}
+                {screen === "reg" ? (
+                    <div className={styles.passwordRow}>
+                        <div className={styles.passwordCol}>
+                            <label>Password</label>
+                            <input
+                                placeholder="Enter your password"
+                                className={styles.input}
+                                type={showPassword ? "text" : "password"}
+                                {...register("password", {
+                                    required: true,
+                                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                                })}
+                            />
+                            <span className={styles.showPassword} onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</span>
+                            {(errors?.password?.message || errors?.password) &&
+                                <p className={styles.formError}>Enter a valid password</p>}
+                        </div>
+
+                        <div className={styles.passwordCol}>
+                            <label>Confirm Password</label>
+                            <input
+                                placeholder="Confirm your password"
+                                className={styles.input}
+                                type={showConfirmPassword ? "text" : "password"}
+                                {...register("confirmPassword", {
+                                    required: true,
+                                    validate: (value) =>
+                                        value === watch("password") || "Passwords do not match"
+                                })}
+                            />
+                            <span className={styles.showPassword} onClick={() => setShowConfirmPassword(!showConfirmPassword)}>{showConfirmPassword ? 'Hide' : 'Show'}</span>
+                            {(errors?.confirmPassword) &&
+                                <p className={styles.formError}>Passwords do not match</p>}
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        <label>Password</label>
+                        <div className={styles.passwordContianer}>
+                            <input
+                                placeholder="Enter your password"
+                                className={styles.input}
+                                type={showPassword ? "text" : "password"}
+                                {...register("password", {
+                                    required: true,
+                                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                                })}
+                            />
+                            <span className={styles.showPassword} onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'Hide' : 'Show'}</span>
+                        </div>
+                        {(errors?.password?.message || errors?.password) &&
+                            <p className={styles.formError}>Enter a valid password</p>}
+                    </>
+                )}
+
                 {screen == "login" && <>
                     <label className={styles.checkboxWrapper}>
                         <input type="checkbox" {...register("rememberMe")} />
@@ -74,9 +165,17 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                         Remember me
                     </label>
                 </>}
+                {screen == 'reg' && <>
+                    <p>Password requirements</p>
+                    <div className={styles.passwordCriteriaContainer}>
+                        {criteria.map(item => {
+                            return <p key={item.id} className={item.status ? styles.passwordSuccessCriteria : styles.passwordCriteria}>{item?.name}</p>
+                        })}
+                    </div>
+                </>}
                 <button type="submit" className={styles.btn}>{screen == 'login' ? "Sign In" : "Create Account"}</button>
             </form >
-            {screen == "login" ?
+            {screen == "login" &&
                 <>
                     <p className={styles.dividerText}>Or continue with</p>
                     <div className={styles.btnContainer}>
@@ -84,12 +183,7 @@ const AuthForm: React.FC<Props> = ({ screen }) => {
                         <button className={styles.socialLoginBtn}><IoLogoFacebook size={26} color="#2563EB" /> Facebook</button>
                     </div>
                 </>
-                : <>
-                    <div>
-                        <p>Password requirements:</p>
-                        
-                    </div>
-                </>}
+            }
             <div className={styles.horizontalLine}></div>
             <div className={styles.formFooter}>
                 <p>{screen == 'login' ? "Don't have an account?" : "Already have an account?"} <span className={styles.quickLink} onClick={handleNavigation}>{screen == 'login' ? "Create an account" : "Sign in here"} <FaArrowRight className={styles.rightArrow} /></span></p >
