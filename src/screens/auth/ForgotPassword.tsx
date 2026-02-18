@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './Auth.module.scss';
-import AuthForm from "./AuthForm";
+import AuthForm from "../../components/auth/AuthForm";
 import Logo from '../../assets/storely.png';
 import { useNavigate } from "react-router-dom";
 

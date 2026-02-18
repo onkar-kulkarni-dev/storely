@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Auth.module.scss';
-import AuthForm from "./AuthForm";
+import AuthForm from "../../components/auth/AuthForm";
 import Logo from '../../assets/storely.png';
 import { ToastContainer } from "react-toastify";
 

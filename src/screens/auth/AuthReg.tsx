@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './Auth.module.scss';
 import Logo from '../../assets/storely.png';
-import AuthForm from "./AuthForm";
+import AuthForm from "../../components/auth/AuthForm";
 
 const AuthReg = () => {
     return (
