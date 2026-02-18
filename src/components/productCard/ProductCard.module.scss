@@ -37,7 +37,7 @@
 
 .strikeThroughPrice{
     text-decoration: line-through;
-    color: $greyText;
+    color: $price;
     font-size: 14px;
 
 }
@@ -48,7 +48,7 @@
 }
 
 .discountPer{
-    color: $green;
+    color: $discountedPrice;
     font-size: 12px;
 }
 
@@ -56,7 +56,7 @@
     height: 32px;
     border-radius: 8px;
     border-width: 0;
-    background-color: $yellow;
+    background-color: $limeGreen;
     cursor: pointer;
     bottom: 0;
     width: 100%;
