@@ -6,11 +6,17 @@ import { FaRegUser } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 // import { CiLocationOn } from "react-icons/ci";
 import Products from '../../data/products.json';
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
 
+    const navigation = useNavigate()
+
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any>([]);
+
+    const cartItems = useSelector((state: any) => state.cart.items);
 
     useEffect(() => {
         if (query.length > 3) {
@@ -23,10 +29,18 @@ const Header = () => {
         }
     }, [query]);
 
+    const openCart = () => {
+        navigation('/cart')
+    }
+
+    const openHome = () => {
+        navigation('/home')
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.leftSection}>
-                <img src={require("../../assets/storely.png")} alt={'Storely'} className={styles.logo} />
+                <img src={require("../../assets/storely.png")} alt={'Storely'} className={styles.logo} onClick={openHome} />
                 {/* <p className={styles.location}><CiLocationOn size={24} color="white" className={styles.icon} />411021</p> */}
             </div>
             <div style={{ position: 'relative' }}>
@@ -46,7 +60,10 @@ const Header = () => {
             <div className={styles.rightSection}>
                 <FaRegUser size={24} color="white" className={styles.icon} />
                 <FaRegHeart size={24} color="white" className={styles.icon} />
-                <FaShoppingCart size={24} color="white" className={styles.icon} />
+                <div>
+                    <FaShoppingCart size={24} color="white" className={styles.icon} onClick={openCart}/>
+                    <div className={styles.badge}>{cartItems?.length}</div>
+                </div>
             </div>
         </div>
     )
