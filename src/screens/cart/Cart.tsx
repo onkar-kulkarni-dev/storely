@@ -4,12 +4,21 @@ import { formatCurrency } from '../../helpers/currencyFunction';
 import { LuShieldCheck } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { LiaUndoAltSolid } from "react-icons/lia";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin5Line } from "react-icons/ri";
+import QuantityStepper from '../../components/quantityStepper/QuantityStepper';
+import { removeFromCart } from '../../redux/cart/cartSlice';
 
 
 const Cart: React.FC = () => {
+
+    const dispatch = useDispatch();
+
     const cartItems = useSelector((state: any) => state.cart.items);
+
+    const removeProductFromCart = (sku: string) => {
+        dispatch(removeFromCart(sku));
+    }
     return (
         <div className={styles.cart}>
             <h2>Your Cart</h2>
@@ -23,10 +32,17 @@ const Cart: React.FC = () => {
                                     <img src={item.image} alt={item.title} className={styles.cartItemImage} />
                                     <div className={styles.cartItemDetails}>
                                         <p className={styles.cartItemTitle}>{item.title}</p>
-                                        <p className={styles.cartItemSeller}>{item.sellerName}</p>
+                                        <p className={styles.cartItemSeller}>Sold by- {item.sellerName}</p>
+                                        <p className={styles.cartItemSeller}>{item.stock > 0 ? "In Stock" : "Out of Stock"}</p>
+                                        <div>
+                                            <QuantityStepper product={item} />
+                                            <button className={styles.deleteBtn} onClick={() => removeProductFromCart(item.sku)}><RiDeleteBin5Line size={24} color="red" />Remove</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className={styles.cartItemPrice}>{formatCurrency(item.specialPrice)}</p>
                                         <p className={styles.cartItemPrice}>{formatCurrency(item.price)}</p>
                                     </div>
-                                    <button className={styles.deleteBtn}><RiDeleteBin5Line size={20} /></button>
                                 </div>
                             </div>
                         })}
