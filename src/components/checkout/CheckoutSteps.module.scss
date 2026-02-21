@@ -1,0 +1,58 @@
+.checkoutContainer {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    padding: 0 20px;
+}
+
+.checkoutLine {
+    position: absolute;
+    top: 18px;
+    left: 36px;
+    right: 36px;
+    height: 2px;
+    background-color: #e5e7eb;
+    z-index: 0;
+}
+
+.stepWrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stepCircle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #6b7280;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.stepCircle.active {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.stepCircle.completed {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    color: white;
+}
+
+.stepLabel {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #4b5563;
+}

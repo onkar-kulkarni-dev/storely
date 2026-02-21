@@ -8,17 +8,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import QuantityStepper from '../../components/quantityStepper/QuantityStepper';
 import { removeFromCart } from '../../redux/cart/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const Cart: React.FC = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const cartItems = useSelector((state: any) => state.cart.items);
 
     const removeProductFromCart = (sku: string) => {
         dispatch(removeFromCart(sku));
     }
+
+    const proceedToCheckoutHandler = () => {
+        navigate('/checkout');
+    }
+
     return (
         <div className={styles.cart}>
             <h2>Your Cart</h2>
@@ -70,7 +77,7 @@ const Cart: React.FC = () => {
                             />
                             <button>Apply</button>
                         </div>
-                        <button className={styles.checkoutButton}>Proceed to Checkout</button>
+                        <button className={styles.checkoutButton} onClick={proceedToCheckoutHandler}>Proceed to Checkout</button>
                         <p className={styles.summaryInfoFooter}><LuShieldCheck size={22} color="green" />Secure payment processing</p>
                         <p className={styles.summaryInfoFooter}><TbTruckDelivery size={22} color="blue" />Free shipping on orders over {formatCurrency(499)}</p>
                         <p className={styles.summaryInfoFooter}><LiaUndoAltSolid size={22} color="orange" />7-day easy return policy</p>
