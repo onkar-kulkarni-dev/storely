@@ -1,0 +1,23 @@
+@use '../../common/UI/colors' as *;;
+
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.viewMore {
+    font-size: 14px;
+    text-decoration: underline;
+    color: $blue;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+h2 {
+    color: $darkGrey;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}

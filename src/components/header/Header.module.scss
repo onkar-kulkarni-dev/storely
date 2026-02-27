@@ -1,0 +1,129 @@
+@use '../../common/UI/colors' as *;
+
+.container {
+    background-color: $headerBackgroundColor;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+}
+
+.logo {
+    height: 5rem;
+    width: 10rem;
+    cursor: pointer;
+}
+
+.rightSection {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.input {
+    width: 8rem; // base width in rem
+    background-color: $textColor;
+    color: $black;
+    padding: 1.25rem 1.25rem 1.25rem 2.5rem; // 20px 20px 20px 40px in rem
+    height: 3rem; // height in rem
+    border-radius: 0.75rem; // 12px in rem
+
+    // Portrait Tablet
+    @media (min-width: 481px) and (max-width: 768px) {
+        width: 15.625rem; // 250px in rem
+    }
+
+    // Landscape Tablet
+    @media (min-width: 769px) and (max-width: 1024px) {
+        width: 25rem; // 400px in rem
+    }
+
+    // Small Laptop
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        width: 31.25rem; // 500px in rem
+    }
+
+    // Desktop / Large Laptop
+    @media (min-width: 1281px) {
+        width: 35rem; // 560px in rem
+    }
+}
+
+.searchIcon {
+    position: absolute;
+    top: 0.9rem;
+    left: 1rem;
+}
+
+.leftSection {
+    margin: 0 -3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.location {
+    display: flex;
+    gap: 0.5rem;
+    color: $textColor;
+    align-items: center;
+    cursor: pointer;
+}
+
+.autoSuggestionsContainer {
+    position: absolute;
+    background-color: $textColor;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    width: 100%; // take full width on small devices
+    max-width: 8rem; // limit max width for smallest screens
+    padding: 1rem;
+    border-radius: 0.75rem; // 12px in rem
+    top: 3.3rem;
+    z-index: 99999;
+    max-height: 25rem;
+    overflow-y: auto;
+
+    p {
+        cursor: pointer;
+    }
+
+    // Portrait Tablet
+    @media (min-width: 481px) and (max-width: 768px) {
+        max-width: 15.625rem; // 250px in rem, aligns with input width
+    }
+
+    // Landscape Tablet
+    @media (min-width: 769px) and (max-width: 1024px) {
+        max-width: 25rem; // 400px in rem
+    }
+
+    // Small Laptop
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        max-width: 31.25rem; // 500px in rem
+    }
+
+    // Desktop / Large Laptop
+    @media (min-width: 1281px) {
+        max-width: 35rem; // 560px in rem, same as input box
+    }
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: $discountedPrice;
+    color: $textColor;
+    border-radius: 100px;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    font-size: 12px;
+}

@@ -1,0 +1,88 @@
+@use '../../common/UI/colors' as *;
+
+.cartItem {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+    .cartItemImage {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .cartItemDetails {
+        flex: 1;
+
+        p,
+        div {
+            padding: 0.2rem 0;
+        }
+
+        .cartItemName {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .cartItemPrice {
+            color: $greyText;
+            margin-top: 5px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
+}
+
+.cartItemTitle {
+    color: $black;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: justify;
+}
+
+.cartItemSeller {
+    color: $greyText;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.stockStauts {
+    font-size: 14px;
+    text-align: justify;
+}
+
+.quantityStepper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+        justify-items: end;
+    }
+}
+
+.cartItemPrice {
+    color: $black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.strikeThroughPrice {
+    color: $greyText;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+
+.deleteBtn {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: $formError;
+    cursor: pointer;
+}

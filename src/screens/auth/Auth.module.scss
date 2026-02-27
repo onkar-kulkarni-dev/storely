@@ -1,0 +1,43 @@
+@use '../../common/UI/colors' as *;
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer {
+    width: 100%;
+    padding: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 16px;
+    margin-top: 2rem;
+
+    @media (min-width: 769px) {
+        width: 30vw;
+    }
+}
+
+.welcomeBack {
+    font-size: 32px;
+    padding: 0.5rem 0;
+}
+
+.subTitle {
+    color: $greyText;
+}
+
+.logo {
+    width: 10rem;
+}
+
+.backToSignInBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: $formActiveBorder;
+    margin: 2rem 0;
+    cursor: pointer;
+}

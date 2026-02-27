@@ -1,0 +1,160 @@
+@use '../../common/UI/colors' as *;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 5rem;
+
+    @media (max-width: 480px) {
+        margin: 0 1rem;
+    }
+}
+
+.checkMark {
+    height: 3rem;
+    width: 3rem;
+    background: $limeGreen; // your main green
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+    animation: breathe 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes breathe {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05); // slightly bigger
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    color: $black;
+    text-align: center;
+}
+
+.desc {
+    color: $greyText;
+    font-size: 18px;
+    text-align: center;
+}
+
+.orderSummary {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 2rem;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 480px) {
+            flex-direction: column-reverse;
+            gap: 1rem;
+        }
+    }
+
+    .iconText {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        color: $formActiveBorder;
+        background-color: $lightBlue;
+        border-radius: 8px;
+        padding: 0 0.5rem;
+
+        @media (max-width: 480px) {
+            width: fit-content;
+            margin: auto;
+        }
+    }
+}
+
+.orderText {
+    color: $greyText;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.orderNumber {
+    color: $black;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.horizontalLine {
+    border: 1px solid $formInactiveBorder;
+    width: 100%;
+    margin: 2rem 0 1rem;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: $greyText;
+    font-size: 14px;
+
+    .firstRow {
+        color: $black;
+        font-weight: 500;
+    }
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
+}
+
+.btnContainer {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
+
+    .firstBtn {
+        border-radius: 8px;
+        padding: 1rem;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+        @media (max-width:480px) {
+            width: 100%;
+        }
+    }
+
+    .secondBtn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: $electricOrange;
+        color: $textColor;
+        border-radius: 8px;
+        padding: 1rem;
+        cursor: pointer;
+
+        @media (max-width:480px) {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
+}

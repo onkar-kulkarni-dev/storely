@@ -1,0 +1,45 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* hide native scrollbar */
+}
+
+.container {
+  display: flex;
+  gap: 15px;
+  overflow-x: scroll;
+  /* allow scrolling programmatically */
+  scroll-behavior: smooth;
+  /* smooth scrolling */
+  padding: 10px 0;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+.leftBtn,
+.rightBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.leftBtn {
+  left: 0;
+}
+
+.rightBtn {
+  right: 0;
+}

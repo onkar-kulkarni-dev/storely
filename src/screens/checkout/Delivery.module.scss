@@ -1,0 +1,107 @@
+@use '../../common/UI/colors' as *;
+
+.container {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $title;
+    margin-bottom: 20px;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 0;
+    border-top: 1px solid $formInactiveBorder;
+    align-items: center;
+
+    @media (max-width: 480px) {
+        flex-direction: column-reverse;
+    }
+
+    .continueButton {
+        background-color: $formActiveBorder;
+        color: $textColor;
+        width: 15rem;
+        height: 3rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 1rem 0;
+
+        @media (max-width: 480px) {
+            width: 100%;
+        }
+    }
+
+    .returnButton {
+        background-color: transparent;
+        color: $black;
+        width: 15rem;
+        height: 3rem;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        @media (max-width: 480px) {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
+
+.deliveryOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.deliveryOption {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+    }
+}
+
+.deliveryOptionDetails {
+    label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        color: $black;
+        margin-bottom: 5px;
+
+        input[type="radio"] {
+            appearance: auto;
+            width: 16px;
+            height: 16px;
+            accent-color: $formActiveBorder;
+        }
+    }
+}
+
+.deliveryEstimate {
+    color: $greyText;
+    font-size: 14px;
+
+    span {
+        font-weight: 500;
+        color: $black;
+    }
+}

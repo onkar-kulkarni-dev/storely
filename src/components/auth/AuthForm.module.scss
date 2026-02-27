@@ -1,0 +1,212 @@
+@use '../../common/UI/colors' as *;
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formError {
+    color: $formError
+}
+
+.input {
+    width: 100%;
+    height: 3rem;
+    outline: 1px solid $formInactiveBorder;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.input:focus {
+    outline: 1px solid $formActiveBorder;
+}
+
+.btn {
+    background-color: $formActiveBorder;
+    color: $textColor;
+    width: 100%;
+    height: 3rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 0.5rem;
+}
+
+.checkboxWrapper input {
+    display: none;
+}
+
+.customCheckbox {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.checkboxWrapper input:checked+.customCheckbox {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.checkboxWrapper input:checked+.customCheckbox::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkboxWrapper:hover .customCheckbox {
+    border-color: #2563EB;
+}
+
+.formFooter {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+    color: $greyText;
+    justify-content: center;
+    align-items: center;
+
+    .quickLink {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        color: $formActiveBorder;
+        cursor: pointer;
+
+        .rightArrow {
+            color: $formActiveBorder;
+        }
+    }
+}
+
+.btnContainer {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    margin: 1rem 0;
+
+    .socialLoginBtn {
+        cursor: pointer;
+        display: flex;
+        gap: 1rem;
+        height: 3rem;
+        width: 50%;
+        align-items: center;
+        outline: 1px solid $black;
+        justify-content: center;
+        border-radius: 8px;
+    }
+}
+
+.dividerText {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: $greyText;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 1rem 0;
+}
+
+.dividerText::before,
+.dividerText::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: $bottomBorder;
+    margin: 0 8px;
+}
+
+.horizontalLine {
+    border: 1px solid $bottomBorder;
+    opacity: 0.5;
+    margin: 1rem -20px;
+}
+
+.passwordCriteriaContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .passwordCriteria {
+        background: $greyBackground;
+        border-radius: 16px;
+        padding: 0.1rem 1rem;
+        color: $greyText;
+    }
+
+    .passwordSuccessCriteria {
+        background: #D1FAE5;
+        border-radius: 16px;
+        padding: 0.1rem 1rem;
+        color: #065F46;
+    }
+}
+
+.passwordRow {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.passwordCol {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+}
+
+.showPassword {
+    position: absolute;
+    right: 1rem;
+    top: 2.3rem;
+    cursor: pointer;
+    color: $greyText;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.passwordContianer {
+    position: relative;
+
+    .showPassword {
+        position: absolute;
+        right: 1rem;
+        top: 0.8rem;
+        color: $greyText;
+        font-size: 12px;
+        font-weight: 600;
+    }
+}
+
+.passwordTextContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .quickLink {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        color: $formActiveBorder;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,31 @@
+@use "sass:color";
+
+$greyText: #6B7280;
+$textColor: #fff;
+$green: #388e3c;
+$blue: #2a55e5;
+$limeGreen: #22C55E; //for add to cart button
+$footerBackgroundColor: #172554;
+$headerBackgroundColor: #3B82F6;
+$formError: #DC2626;
+$formActiveBorder: #2563EB;
+$formInactiveBorder: #D1D5DB;
+$black: #000;
+$bottomBorder: #D1D5DB;
+$greyBackground: #F3F4F6;
+$electricOrange: #F97316; //for update to cart button
+$skyBlue: #3B82F6; //for buy now or checkout button
+$title: #111827;
+$price: #374151;
+$discountedPrice: #EF4444;
+$lightGreen: #F0FDF4;
+$lightBlue: #EFF6FF;
+$darkGrey: #1F2937;
+
+@function darken($color, $amount) {
+  @return color.adjust($color, $lightness: -$amount);
+}
+
+@function lighten($color, $amount) {
+  @return color.adjust($color, $lightness: $amount);
+}

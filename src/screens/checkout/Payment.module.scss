@@ -1,0 +1,164 @@
+@use '../../common/UI/colors' as *;
+
+.container {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $title;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        font-size: 12px;
+        font-weight: 200;
+        background-color: $lightGreen;
+        color: $green;
+        padding: 0 5px;
+    }
+}
+
+.paymentOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: $black;
+    margin-bottom: 5px;
+
+    input[type="radio"] {
+        appearance: auto;
+        width: 16px;
+        height: 16px;
+        accent-color: $formActiveBorder;
+    }
+}
+
+.cardOption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.cards {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.paymentOption {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+    }
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 0;
+    border-top: 1px solid $formInactiveBorder;
+    align-items: center;
+
+    @media (max-width: 480px) {
+        flex-direction: column-reverse;
+    }
+
+    .continueButton {
+        background-color: $formActiveBorder;
+        color: $textColor;
+        width: 15rem;
+        height: 3rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 1rem 0;
+
+        @media (max-width: 480px) {
+            width: 100%;
+        }
+    }
+
+    .returnButton {
+        background-color: transparent;
+        color: $black;
+        width: 15rem;
+        height: 3rem;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        @media (max-width: 480px) {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
+
+.cardDetails {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+
+    // @media (max-width: 480px) {
+    //     flex-direction: column;
+    //     gap: 0;
+    // }
+}
+
+.input {
+    width: 100%;
+    height: 3rem;
+    outline: 1px solid $formInactiveBorder;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.input:focus {
+    outline: 1px solid $formActiveBorder;
+}
+
+.error {
+    color: $formError;
+    font-size: 14px;
+    margin-top: -8px;
+    margin-bottom: 10px;
+}
+
+.formContainer {
+    outline: 1px solid $formInactiveBorder;
+    padding: 20px;
+    border-radius: 8px;
+    margin: -15px 0px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,143 @@
+@use '../../common/UI/colors' as *;
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $black;
+}
+
+.ratingContainer {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    align-items: center;
+
+    p {
+        color: $black;
+        font-weight: 600;
+
+        span {
+            color: $greyText;
+            font-weight: 400;
+            padding-left: 1rem;
+        }
+    }
+}
+
+.priceContianer {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    padding: 0rem 0 1rem;
+
+    .specialPrice {
+        font-size: 30px;
+        font-weight: 600;
+        color: $black;
+    }
+
+    .price {
+        font-size: 22px;
+        font-weight: 500;
+        color: $greyText;
+        text-decoration: line-through;
+    }
+
+    .discountPercentage {
+        background-color: $discountedPrice;
+        padding: 1px 10px;
+        color: $textColor;
+        width: fit-content;
+        text-transform: uppercase;
+        border-radius: 8px;
+        text-align: center;
+    }
+}
+
+.featureContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: $lightBlue;
+    border-radius: 8px;
+    gap: 0.5rem;
+    width: fit-content;
+    margin: 1rem 0;
+    list-style-type: disc;
+    padding-left: 40px;
+
+    li::marker {
+        color: $skyBlue;
+    }
+
+    .feature {
+        color: $black;
+        font-weight: 600;
+    }
+}
+
+.btnContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+    width: 50%;
+
+    .buyNow {
+        width: 100%;
+        height: 2rem;
+        border-radius: 8px;
+        text-align: center;
+        color: $textColor;
+        background-color: $skyBlue;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+}
+
+.horizonalLine {
+    border-bottom: 1px solid $formInactiveBorder;
+    margin: 10px 0;
+}
+
+.inStock {
+    color: $green;
+    font-weight: 600;
+}
+
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    p {
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .footerIcon {
+        background: $lightBlue;
+        border-radius: 100px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

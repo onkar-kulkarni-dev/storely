@@ -1,0 +1,33 @@
+@use '../../common/UI/colors' as *;
+
+.btn {
+    height: 32px;
+    border-radius: 8px;
+    border-width: 0;
+    background-color: $limeGreen;
+    cursor: pointer;
+    bottom: 0;
+    width: 100%;
+}
+
+.updateBtn {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: $electricOrange;
+    width: 100%;
+    justify-content: center;
+    height: 32px;
+    border-radius: 8px;
+    border-width: 0;
+    width: 100%;
+    color: $textColor;
+}
+
+.addToCartText {
+    color: $textColor;
+}
+
+.quantityBtn {
+    cursor: pointer;
+}

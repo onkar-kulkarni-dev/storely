@@ -1,0 +1,103 @@
+/* ===============================
+   CSS Reset / Normalize
+   Resets default browser styles
+   =============================== */
+
+/* Box sizing and layout */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+/* HTML and body defaults */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default lists styling */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default quotes for blockquote / q */
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+}
+
+/* Remove default table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Links and buttons */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  appearance: none;
+}
+
+/* Images and media */
+img,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Form elements reset */
+input,
+button,
+select,
+textarea {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+/* Hidden elements */
+[hidden] {
+  display: none !important;
+}
+
+/* Utility */
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+}
