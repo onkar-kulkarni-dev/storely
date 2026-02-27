@@ -7,7 +7,7 @@ import { LiaUndoAltSolid } from "react-icons/lia";
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CartItem from '../../components/cart/CartItem';
-import CartEmpty from '../../assets/cartEmpty.svg';
+import CartEmpty from '../../assets/cartEmpty.svg?react';
 
 
 const Cart: React.FC = () => {

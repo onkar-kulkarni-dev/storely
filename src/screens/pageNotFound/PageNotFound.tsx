@@ -1,5 +1,5 @@
 import styles from './PageNotFound.module.scss';
-import  NotFound  from '../../assets/404.svg';
+import  NotFound  from '../../assets/404.svg?react';
 import { useNavigate } from 'react-router-dom';
 
 const PageNotFound = () => {

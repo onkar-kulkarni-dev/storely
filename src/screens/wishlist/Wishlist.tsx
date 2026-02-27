@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import styles from './Wishlist.module.scss';
 import { useGetWishlistProducts } from '../../common/queries/useGetWishlistProducts';
-import  NoWishlist  from '../../assets/noWishlist.svg';
+import  NoWishlist  from '../../assets/noWishlist.svg?react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../../components/productCard/ProductCard';
 

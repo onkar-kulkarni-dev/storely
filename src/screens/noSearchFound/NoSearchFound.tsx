@@ -1,5 +1,5 @@
 import styles from './NoSearchFound.module.scss';
-import NotFound from '../../assets/noProducts.svg';
+import NotFound from '../../assets/noProducts.svg?react';
 import { useNavigate } from 'react-router-dom';
 
 const NoSearchFound = () => {
