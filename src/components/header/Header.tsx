@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from './Header.module.scss'
 import { FaShoppingCart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 // import { CiLocationOn } from "react-icons/ci";
 import Products from '../../data/products.json';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StorelyLogo from "../../assets/storely.png"
 
@@ -14,9 +14,14 @@ const Header = () => {
 
     const navigation = useNavigate()
     const location = useLocation();
+    const [searchParams] = useSearchParams()
+    const searchValue = searchParams.get("search");
+
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any>([]);
+    const [isUserTyping, setIsUserTyping] = useState(false);
 
     const cartItems = useSelector((state: any) => state.cart.items);
 
@@ -25,6 +30,14 @@ const Header = () => {
         setQuery('');
         setResults([]);
     }, [location.pathname]);
+
+    useEffect(() => {
+        if (searchValue) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setQuery(searchValue)
+            setResults([]);
+        }
+    }, [searchValue])
 
     useEffect(() => {
         if (query.length > 3) {
@@ -56,6 +69,16 @@ const Header = () => {
         setResults([])
     }
 
+    const openPLP = (e: any) => {
+        e.preventDefault();
+        if (query.length > 0) {
+            navigation(`/products?search=${query}`)
+            setQuery('')
+            setResults([])
+            inputRef?.current?.blur()
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.leftSection}>
@@ -64,14 +87,19 @@ const Header = () => {
             </div>
             <div style={{ position: 'relative' }}>
                 <LuSearch className={styles.searchIcon} size={20} />
-                <input
-                    type="text"
-                    className={styles.input}
-                    placeholder="Search Storely.in"
-                    onChange={(e) => setQuery(e.target.value)}
-                    value={query}
-                />
-                {results?.length > 0 && <div className={styles.autoSuggestionsContainer}>
+                <form onSubmit={openPLP}>
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        className={styles.input}
+                        placeholder="Search Storely.in"
+                        onChange={(e) => setQuery(e.target.value)}
+                        value={query}
+                        onFocus={() => setIsUserTyping(true)}
+                        onBlur={() => setIsUserTyping(false)}
+                    />
+                </form>
+                {isUserTyping && results?.length > 0 && <div className={styles.autoSuggestionsContainer}>
                     {results.map((item: any) => (
                         <p key={item.id} onClick={() => openItem(item)}>{item.title}</p>
                     ))}

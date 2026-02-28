@@ -20,6 +20,7 @@ import { SiOppo } from "react-icons/si";
 import { SiNikon } from "react-icons/si";
 import { BiLogoProductHunt } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from 'react-router-dom';
 
 
 type Props = {
@@ -28,6 +29,8 @@ type Props = {
 }
 
 const CategoryAndBrands: React.FC<Props> = ({ data, type }) => {
+
+    const navigation = useNavigate()
 
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -71,39 +74,47 @@ const CategoryAndBrands: React.FC<Props> = ({ data, type }) => {
     const getBrandIcon = (brand: string) => {
         switch (brand?.toLowerCase()) {
             case 'apple':
-                return <FaApple size={32} fill="A2AAAD"/>;
+                return <FaApple size={32} fill="A2AAAD" />;
             case 'samsung':
-                return <SiSamsung size={32} fill="#1428A0"/>;
+                return <SiSamsung size={32} fill="#1428A0" />;
             case 'xiaomi':
-                return <SiXiaomi size={32} fill='orange'/>;
+                return <SiXiaomi size={32} fill='orange' />;
             case 'oneplus':
-                return <SiOneplus size={32} fill="red"/>;
+                return <SiOneplus size={32} fill="red" />;
             case 'google':
                 return <FcGoogle size={32} />;
             case 'dell':
-                return <SiDell size={32} fill='blue'/>;
+                return <SiDell size={32} fill='blue' />;
             case 'hp':
-                return <SiHp size={32} fill='#0096D6'/>;
+                return <SiHp size={32} fill='#0096D6' />;
             case 'lenovo':
-                return <SiLenovo size={32} fill="red"/>;
+                return <SiLenovo size={32} fill="red" />;
             case 'sony':
                 return <SiSony size={32} />;
             case 'amazfit':
                 return <BsSmartwatch size={32} />;
             case 'boat':
-                return <FaSailboat size={32} fill="#E50914"/>;
+                return <FaSailboat size={32} fill="#E50914" />;
             case 'oppo':
-                return <SiOppo size={32} fill="green"/>;
+                return <SiOppo size={32} fill="green" />;
             case 'canon':
-                return <FaCamera size={32} fill="#BC0024"/>;
+                return <FaCamera size={32} fill="#BC0024" />;
             case 'realme':
-                return <FaMobileScreenButton size={32} fill="#FFD700"/>;
+                return <FaMobileScreenButton size={32} fill="#FFD700" />;
             case 'nikon':
-                return <SiNikon size={32} fill="#FFD600"/>;
+                return <SiNikon size={32} fill="#FFD600" />;
             case 'gopro':
-                return <BiLogoProductHunt size={32} fill="#00B0F0"/>;
+                return <BiLogoProductHunt size={32} fill="#00B0F0" />;
             default:
                 return null;
+        }
+    }
+
+    const handleNavigation = (item: string) => {
+        if (type == 'category') {
+            navigation(`/products?category=${item}`)
+        } else {
+            navigation(`/products?brand=${item}`)
         }
     }
 
@@ -113,7 +124,7 @@ const CategoryAndBrands: React.FC<Props> = ({ data, type }) => {
             <div className={styles.container} ref={containerRef}>
                 {data.map((item: string) => (
                     <div key={item} style={{ textAlign: 'center' }}>
-                        <div className={styles.iconContainer} onClick={()=>{}}>
+                        <div className={styles.iconContainer} onClick={() => handleNavigation(item)}>
                             {getIcons(item)}
                         </div>
                         <p style={{ marginTop: '4px' }}>{item}</p>

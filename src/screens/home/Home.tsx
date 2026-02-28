@@ -13,8 +13,11 @@ import heroBanner from '../../assets/hero-banner.png';
 import CouponsSection from "../../components/coupons/CouponsSection";
 import Products from '../../data/products.json';
 import PromotionsSection from "../../components/promotions/PromotionsSection";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+    const navigation = useNavigate()
 
     const newArrivalProducts = useGetNewArrivalProducts();
     const bestSellerProducts = useGetBestSellerProducts();
@@ -27,7 +30,7 @@ const Home = () => {
         title: "Welcome to Storely!",
         subtitle: "Best Deals on Electronics, Gadgets & Accessories",
         ctaText: "Shop Now",
-        ctaLink: "/shop",
+        ctaLink: "/products",
         imageUrl: "../../assets/hero-banner.png",
     };
 
@@ -46,6 +49,10 @@ const Home = () => {
         }
     }
 
+    const handleNavigation = (tag: string) => {
+        navigation(`/products?tag=${tag}`)
+    }
+
     return (
         <>
             <HeroBanner
@@ -61,20 +68,20 @@ const Home = () => {
                     data?.length > 0 && <div key={grid}>
                         <div className={styles.headerContainer}>
                             <h2>{grid}</h2>
-                            <p className={styles.viewMore}>View More</p>
+                            <p className={styles.viewMore} onClick={() => handleNavigation(grid)}>View More</p>
                         </div>
                         <ProductGrid data={productsData(grid)} />
                     </div>
                 )
             })}
             <h2>Exclusive Coupons</h2>
-            <CouponsSection coupons={Products.coupons}/>
+            <CouponsSection coupons={Products.coupons} />
             <h2>Shop by Category</h2>
             <CategoryAndBrands data={categories} type={'category'} />
             <h2>Shop by Brands</h2>
             <CategoryAndBrands data={brands} type={'brand'} />
             <h2>Current Promotions</h2>
-            <PromotionsSection promotions={Products.promotions}/>
+            <PromotionsSection promotions={Products.promotions} />
         </>
     )
 }

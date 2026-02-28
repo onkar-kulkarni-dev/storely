@@ -27,3 +27,81 @@ export const FOOTER_DATA = [
         items: ["Facebook", "Instagram", "X", "YouTube"]
     }
 ]
+
+export const SORT_BY_OPTION = [
+    {
+        id: 1,
+        title: 'Featured'
+    },
+    {
+        id: 2,
+        title: 'Price: Low to High'
+    },
+    {
+        id: 3,
+        title: 'Price: High to Low'
+    },
+    {
+        id: 4,
+        title: 'Avg. Customer Review'
+    },
+    {
+        id: 5,
+        title: 'New Arrivals'
+    },
+]
+
+export const FILTERS_CONFIG = [
+    {
+        id: 1,
+        key: 'category',
+        label: 'Category',
+        type: 'checkbox',
+        options: [
+            { label: 'Mobiles', value: 'mobiles' },
+            { label: 'Laptops', value: 'laptop' },
+        ]
+    },
+    {
+        id: 2,
+        key: 'brand',
+        label: 'Brand',
+        type: 'checkbox',
+        options: [
+            { label: 'Apple', value: 'apple' },
+            { label: 'Pixel', value: 'pixel' },
+        ]
+    },
+    {
+        id: 3,
+        key: "price",
+        label: 'Price',
+        type: 'range'
+    },
+    {
+        id: 4,
+        key: "discount",
+        label: 'Discount',
+        type: 'radio',
+        options: [
+            { label: '10% Off or more', value: '10%' }
+        ]
+    },
+    {
+        id: 5,
+        key: 'ratings',
+        label: 'Customer Ratings',
+        type: 'radio',
+        options: [
+            { label: '4★ & above', value: 4 },
+            { label: '3★ & above', value: 3 },
+        ]
+    },
+    {
+        id: 6,
+        key: 'color',
+        label: 'Colour',
+        type: 'checkbox',
+        options: []
+    },
+]

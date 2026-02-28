@@ -1,0 +1,25 @@
+.contentContainer {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    gap: 1.5rem;
+    padding: 20px 0;
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+
+        .filterContainer {
+            display: none;
+        }
+    }
+}
+
+.productContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 13rem);
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+        justify-content: center;
+        align-items: center;
+    }
+}

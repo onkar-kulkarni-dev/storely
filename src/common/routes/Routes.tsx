@@ -15,6 +15,7 @@ import PageNotFound from "../../screens/pageNotFound/PageNotFound";
 import Wishlist from "../../screens/wishlist/Wishlist";
 import NoSearchFound from "../../screens/noSearchFound/NoSearchFound";
 import ProductDetails from "../../screens/productDetail/ProductDetails";
+import ProductListingPage from "../../screens/productListing/ProductListingPage";
 
 const CustomRoutes = () => {
     return (
@@ -35,6 +36,7 @@ const CustomRoutes = () => {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/product/:sku" element={<ProductDetails />} />
             <Route path="/no-results" element={<NoSearchFound />} />
+            <Route path="/products" element={<ProductListingPage />} />
 
             <Route path="*" element={<PageNotFound />} />
         </Routes>
