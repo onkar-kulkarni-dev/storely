@@ -57,20 +57,14 @@ export const FILTERS_CONFIG = [
         key: 'category',
         label: 'Category',
         type: 'checkbox',
-        options: [
-            { label: 'Mobiles', value: 'mobiles' },
-            { label: 'Laptops', value: 'laptop' },
-        ]
+        options: []
     },
     {
         id: 2,
         key: 'brand',
         label: 'Brand',
         type: 'checkbox',
-        options: [
-            { label: 'Apple', value: 'apple' },
-            { label: 'Pixel', value: 'pixel' },
-        ]
+        options: []
     },
     {
         id: 3,
@@ -84,7 +78,10 @@ export const FILTERS_CONFIG = [
         label: 'Discount',
         type: 'radio',
         options: [
-            { label: '10% Off or more', value: '10%' }
+            { label: '10% Off or more', value: 10 },
+            { label: '20% Off or more', value: 20 },
+            { label: '30% Off or more', value: 30 },
+            { label: '50% Off or more', value: 50 },
         ]
     },
     {

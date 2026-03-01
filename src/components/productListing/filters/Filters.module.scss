@@ -130,3 +130,44 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+.colorFormContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    label input {
+        display: none;
+    }
+
+    .colorCheckBox {
+        width: 26px;
+        height: 26px;
+        border: 2px solid $formInactiveBorder;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    /* Base tick */
+    label input:checked+.colorCheckBox::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 4px;
+        width: 6px;
+        height: 12px;
+        border: solid;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    /* White background → black tick */
+    label input:checked+.colorCheckBox.darkTick::after {
+        border-color: black;
+    }
+
+    /* Other backgrounds → white tick */
+    label input:checked+.colorCheckBox.lightTick::after {
+        border-color: white;
+    }
+}
