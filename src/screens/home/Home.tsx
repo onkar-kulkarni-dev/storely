@@ -50,7 +50,7 @@ const Home = () => {
     }
 
     const handleNavigation = (tag: string) => {
-        navigation(`/products?tag=${tag}`)
+        navigation(`/products?tag=${tag}&src=${tag}`)
     }
 
     return (

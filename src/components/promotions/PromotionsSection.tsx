@@ -19,7 +19,7 @@ const PromotionsSection: React.FC<PromotionsSectionProps> = ({ promotions }) => 
     const navigation = useNavigate()
 
     const handleNavigation = (promo: any) => {
-        navigation(`/products?promo=${promo.id}`)
+        navigation(`/products?promo=${promo.id}&src=promotion_${promo.id}`)
     }
 
     return (

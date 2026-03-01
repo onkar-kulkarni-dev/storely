@@ -112,9 +112,9 @@ const CategoryAndBrands: React.FC<Props> = ({ data, type }) => {
 
     const handleNavigation = (item: string) => {
         if (type == 'category') {
-            navigation(`/products?category=${item}`)
+            navigation(`/products?category=${item}&src=${item}`)
         } else {
-            navigation(`/products?brand=${item}`)
+            navigation(`/products?brand=${item}&src=${item}`)
         }
     }
 

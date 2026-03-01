@@ -2,12 +2,29 @@ import styles from './ProductListingHeader.module.scss';
 import { FaAngleDown } from "react-icons/fa6";
 import { FaAngleUp } from "react-icons/fa6";
 import { SORT_BY_OPTION } from '../../../common/constants/constants';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const ProductListingHeader = () => {
+type Props = {
+    numberOfProducts: number,
+    fromProductCount: number,
+    toProductCount: number
+}
+
+const ProductListingHeader: React.FC<Props> = ({ numberOfProducts, fromProductCount, toProductCount }) => {
+
+    const location = useLocation();
+    const navigate = useNavigate()
+
+    const searchParams = new URLSearchParams(location.search)
+    const sortParamValue = searchParams.get('sort')
+    const srcParamValue = searchParams.get('src')
+    const searchParamValue = searchParams.get('search')
+    const filteredSrcParamValue = srcParamValue?.replace('_', " ")
+    const itemText = numberOfProducts > 1 ? 'items' : 'item'
 
     const [isViewModal, setIsViewModal] = useState(false);
-    const [sortOption, setSortOption] = useState(SORT_BY_OPTION[0].title)
+    const [sortOption, setSortOption] = useState(sortParamValue ? sortParamValue : SORT_BY_OPTION[0].title)
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -27,18 +44,31 @@ const ProductListingHeader = () => {
         };
     }, [isViewModal]);
 
+    useEffect(() => {
+        setSortOption(sortParamValue ?? SORT_BY_OPTION[0].title);
+    }, [sortParamValue]);
+
+    const applySort = (sort: any) => {
+        setSortOption(sort.title);
+        setIsViewModal(false);
+
+        const params = new URLSearchParams(location.search);
+        params.set('sort', sort.title);
+
+        navigate(`/products?${params.toString()}`, { replace: true });
+    }
 
     return (
         <div className={styles.container}>
-            <p>1-16 of over 5000 results for <span>"apple iphone"</span></p>
-            <div ref={modalRef}>
+            {searchParamValue ? <p className={styles.searchHeaderTitle}>{`${fromProductCount}-${toProductCount} of over ${numberOfProducts} results for `}<span>{`"${searchParamValue}"`}</span></p> : <p className={styles.headerTitle}>{filteredSrcParamValue} <span>{`${numberOfProducts} ${itemText}`}</span></p>}
+            {numberOfProducts > 0 && <div ref={modalRef}>
                 <button className={styles.btnContainer} onClick={() => setIsViewModal(!isViewModal)}>Sort by: {sortOption} {isViewModal ? <FaAngleUp /> : < FaAngleDown />}</button>
                 {isViewModal && <ul className={styles.sortModalContainer}>
                     {SORT_BY_OPTION.map((sort: any) => {
-                        return <li key={sort.id} onClick={() => { setSortOption(sort.title); setIsViewModal(false) }}>{sort.title}</li>
+                        return <li key={sort.id} onClick={() => applySort(sort)}>{sort.title}</li>
                     })}
                 </ul>}
-            </div>
+            </div>}
         </div>
     )
 }

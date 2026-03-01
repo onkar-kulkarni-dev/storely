@@ -1,6 +1,7 @@
 // src/components/HeroBanner/HeroBanner.tsx
 import React from 'react';
 import styles from './HeroBanner.module.scss';
+import { Link } from 'react-router-dom';
 
 interface HeroBannerProps {
     title: string;
@@ -18,9 +19,9 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ title, subtitle, ctaText, ctaLi
                 <h1>{title}</h1>
                 {subtitle && <p>{subtitle}</p>}
                 {ctaText && ctaLink && (
-                    <a href={ctaLink} className={styles.ctaButton}>
+                    <Link to={`${ctaLink}?src=all_products`}><p className={styles.ctaButton}>
                         {ctaText}
-                    </a>
+                    </p></Link>
                 )}
             </div>
         </div>
