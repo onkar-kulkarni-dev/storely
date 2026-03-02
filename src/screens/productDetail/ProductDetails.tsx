@@ -12,6 +12,8 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { LiaUndoAltSolid } from "react-icons/lia";
 import ProductDetailsTab from "../../components/productDetailsTab/ProductDetailsTab";
 import ProductGallery from "../../components/productGallery/ProductGallery";
+import { useYouMayAlsoLike } from "../../common/queries/useYouMayAlsoLike";
+import ProductGrid from "../../components/productGrid/ProductGrid";
 
 const ProductDetails = () => {
     const { sku } = useParams();
@@ -21,6 +23,7 @@ const ProductDetails = () => {
         original: img,
         thumbnail: img,
     }));
+    const youMayAlsoLikeProducts = useYouMayAlsoLike(product?.youMightLike)
     return (
         <div>
             {productData?.length === 0 ? <NoSearchFound />
@@ -57,6 +60,8 @@ const ProductDetails = () => {
                             <p><span className={styles.footerIcon}><LuShieldCheck color="#3B82F6" size={20} /></span> {product?.warranty?.available ? `${product?.warranty?.durationMonths} Months` : 'No Warranty on this Product'}</p>
                         </div>
                         <ProductDetailsTab product={product} />
+                        <h2>You May Also Like</h2>
+                        <ProductGrid data={youMayAlsoLikeProducts} />
                     </div>
                 </div>
             }
