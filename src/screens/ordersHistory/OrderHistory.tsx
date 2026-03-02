@@ -52,7 +52,7 @@ const OrderHistory = () => {
             const [day, month, year] = dateString.split('/');
             const date = new Date(`${year}-${month}-${day}`);
 
-            const options = { month: 'long' };
+            const options: Intl.DateTimeFormatOptions = { month: 'long' };
             const monthName = date.toLocaleString('en-US', options);
 
             return `${monthName}, ${day} ${year}`;
