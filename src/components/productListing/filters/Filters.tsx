@@ -1,16 +1,68 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Filters.module.scss';
 import ProductListHelper from '../../../helpers/productList';
 import { formatCurrency } from '../../../helpers/currencyFunction';
+import { useSearchParams } from 'react-router-dom';
 
 type Props = {
-    products: any
-}
+    products: any;
+};
 
 const Filters: React.FC<Props> = ({ products }) => {
-    const [price, setPrice] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const filtersData = ProductListHelper.getDynamicFilters(products)
+    const filtersData = ProductListHelper.getDynamicFilters(products);
+
+    /* ---------------- PRICE ---------------- */
+
+    const priceFromUrl = Number(searchParams.get("price") || 0);
+    const [price, setPrice] = useState(priceFromUrl || 0);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setPrice(priceFromUrl || 0);
+    }, [priceFromUrl]);
+
+    /* ---------------- HELPERS ---------------- */
+
+    const isSelected = (key: string, value: string | number) => {
+        return searchParams.getAll(key).includes(String(value));
+    };
+
+    const updateFilter = (
+        key: string,
+        type: string,
+        value: string | number
+    ) => {
+        const params = new URLSearchParams(searchParams);
+
+        if (type === "checkbox") {
+            const existing = params.getAll(key);
+
+            if (existing.includes(String(value))) {
+                const updated = existing.filter(v => v !== String(value));
+                params.delete(key);
+                updated.forEach(v => params.append(key, v));
+            } else {
+                params.append(key, String(value));
+            }
+        }
+
+        if (type === "radio") {
+            params.set(key, String(value));
+        }
+
+        setSearchParams(params);
+    };
+
+    const updatePrice = (value: number) => {
+        setPrice(value);
+        const params = new URLSearchParams(searchParams);
+        params.set("price", String(value));
+        setSearchParams(params);
+    };
+
+    /* ---------------- UI ---------------- */
 
     return (
         <div className={styles.container}>
@@ -18,28 +70,36 @@ const Filters: React.FC<Props> = ({ products }) => {
                 <div key={filter.label}>
                     <p className={styles.filterType}>{filter.label}</p>
 
-                    {/* ✅ RANGE TYPE SUPPORT ADDED */}
                     {filter.type === "range" ? (
                         <div className={styles.rangeWrapper}>
                             <div className={styles.rangeValues}>
                                 <span>{formatCurrency(filter.options.min)}</span>
-                                {price > filter.options.min && <span>{formatCurrency(price)}</span>}
+                                {price > filter.options.min && (
+                                    <span>{formatCurrency(price)}</span>
+                                )}
                                 <span>{formatCurrency(filter.options.max)}</span>
                             </div>
+
                             <input
                                 type="range"
                                 min={filter.options.min}
                                 max={filter.options.max}
-                                value={price > filter.options.min ? price : filter.options.min}
-                                onChange={(e) => setPrice(Number(e.target.value))}
+                                value={price || filter.options.min}
+                                onChange={(e) => updatePrice(Number(e.target.value))}
                                 className={styles.rangeInput}
                             />
                         </div>
                     ) : filter.key === "color" ? (
                         <form className={styles.colorFormContainer}>
                             {filter.options?.map((option: any) => (
-                                <label key={option.label}>
-                                    <input type="checkbox" name={filter.label} />
+                                <label key={option.value}>
+                                    <input
+                                        type="checkbox"
+                                        checked={isSelected(filter.key, option.value)}
+                                        onChange={() =>
+                                            updateFilter(filter.key, "checkbox", option.value)
+                                        }
+                                    />
 
                                     <span
                                         className={`${styles.colorCheckBox} ${option.label.toLowerCase() === "white"
@@ -47,19 +107,29 @@ const Filters: React.FC<Props> = ({ products }) => {
                                             : styles.lightTick
                                             }`}
                                         style={{ background: option.label }}
-                                    ></span>
+                                    />
                                 </label>
                             ))}
                         </form>
                     ) : (
                         <form>
                             {filter.options?.map((option: any) => (
-                                <label key={option.label} className={styles.checkboxWrapper}>
+                                <label key={option.value} className={styles.checkboxWrapper}>
                                     <input
                                         type={filter.type}
-                                        name={filter.label}
+                                        checked={isSelected(filter.key, option.value)}
+                                        onChange={() =>
+                                            updateFilter(filter.key, filter.type, option.value)
+                                        }
                                     />
-                                    <span className={filter.type === "radio" ? styles.customRadio : styles.customCheckbox} />
+
+                                    <span
+                                        className={
+                                            filter.type === "radio"
+                                                ? styles.customRadio
+                                                : styles.customCheckbox
+                                        }
+                                    />
                                     <span>{option.label}</span>
                                 </label>
                             ))}
@@ -68,7 +138,7 @@ const Filters: React.FC<Props> = ({ products }) => {
                 </div>
             ))}
         </div>
-    )
-}
+    );
+};
 
-export default Filters
+export default Filters;

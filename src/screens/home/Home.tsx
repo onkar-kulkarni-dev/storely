@@ -1,4 +1,3 @@
-import { HOME_GRIDS } from "../../common/constants/home-constants";
 import { useGetNewArrivalProducts } from "../../common/queries/useGetNewArrivalProducts";
 import { useGetBestSellerProducts } from "../../common/queries/useGetBestSellerProducts";
 import { useGetRecommendedProducts } from "../../common/queries/useGetRecommendedProducts";
@@ -34,54 +33,66 @@ const Home = () => {
         imageUrl: "../../assets/hero-banner.png",
     };
 
-    const productsData = (grid: string) => {
-        switch (grid) {
-            case 'New Arrival':
-                return newArrivalProducts;
-            case 'Best Seller':
-                return bestSellerProducts;
-            case 'Recommended':
-                return recommendedProducts;
-            case 'Trending':
-                return trendingProducts;
-            default:
-                return []
-        }
-    }
-
     const handleNavigation = (tag: string) => {
         navigation(`/products?tag=${tag}&src=${tag}`)
     }
 
+    const HOME_LAYOUT_GRIDS = [
+        { type: 'hero', data: heroData },
+        { type: 'category', data: categories },
+        { type: 'products', data: newArrivalProducts, title: 'New Arrival' },
+        { type: 'products', data: trendingProducts, title: 'Trending' },
+        { type: 'coupons', data: Products.coupons },
+        { type: 'brands', data: brands },
+        { type: 'products', data: bestSellerProducts, title: 'Best Seller' },
+        { type: 'products', data: recommendedProducts, title: 'Recommended' },
+        { type: 'promotion', data: Products.promotions },
+    ]
+
     return (
         <>
-            <HeroBanner
-                title={heroData.title}
-                subtitle={heroData.subtitle}
-                ctaText={heroData.ctaText}
-                ctaLink={heroData.ctaLink}
-                imageUrl={heroBanner}
-            />
-            {HOME_GRIDS.map((grid: string) => {
-                const data = productsData(grid)
-                return (
-                    data?.length > 0 && <div key={grid}>
-                        <div className={styles.headerContainer}>
-                            <h2>{grid}</h2>
-                            <p className={styles.viewMore} onClick={() => handleNavigation(grid)}>View More</p>
+            {HOME_LAYOUT_GRIDS.map((grid: any) => {
+                switch (grid.type) {
+                    case 'hero':
+                        return <HeroBanner
+                            title={heroData.title}
+                            subtitle={heroData.subtitle}
+                            ctaText={heroData.ctaText}
+                            ctaLink={heroData.ctaLink}
+                            imageUrl={heroBanner}
+                        />
+                    case 'category':
+                        return <>
+                            <h2>Shop by Category</h2>
+                            <CategoryAndBrands data={categories} type={'category'} />
+                        </>
+                    case 'products':
+                        return <div>
+                            <div className={styles.headerContainer}>
+                                <h2>{grid.title}</h2>
+                                <p className={styles.viewMore} onClick={() => handleNavigation(grid.title)}>View More</p>
+                            </div>
+                            <ProductGrid data={grid.data} />
                         </div>
-                        <ProductGrid data={productsData(grid)} />
-                    </div>
-                )
+                    case 'coupons':
+                        return <>
+                            <h2>Exclusive Coupons</h2>
+                            <CouponsSection coupons={Products.coupons} />
+                        </>
+                    case 'brands':
+                        return <>
+                            <h2>Shop by Brands</h2>
+                            <CategoryAndBrands data={brands} type={'brand'} />
+                        </>
+                    case 'promotion':
+                        return <>
+                            <h2>Current Promotions</h2>
+                            <PromotionsSection promotions={Products.promotions} />
+                        </>
+                    default:
+                        return null
+                }
             })}
-            <h2>Exclusive Coupons</h2>
-            <CouponsSection coupons={Products.coupons} />
-            <h2>Shop by Category</h2>
-            <CategoryAndBrands data={categories} type={'category'} />
-            <h2>Shop by Brands</h2>
-            <CategoryAndBrands data={brands} type={'brand'} />
-            <h2>Current Promotions</h2>
-            <PromotionsSection promotions={Products.promotions} />
         </>
     )
 }

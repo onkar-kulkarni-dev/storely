@@ -6,38 +6,18 @@ export const useProductQuery = () => {
     const location = useLocation();
     const products = Products ?? {}
     const searchParams = new URLSearchParams(location.search)
-    const categoryParamValue = searchParams.get('category')
-    const brandParamValue = searchParams.get('brand')
-    const promoParamValue = searchParams.get('promo')
-    const tagParamValue = searchParams.get('tag')
-    const searchParamValue = searchParams.get('search')
     const sortParamValue = searchParams.get('sort')
-    let navType: string = ''
-    let navValue: any = null
-    if (categoryParamValue) {
-        navType = 'category'
-        navValue = categoryParamValue
-    } else if (brandParamValue) {
-        navType = 'brand'
-        navValue = brandParamValue
-    } else if (promoParamValue) {
-        navType = 'promo'
-        navValue = promoParamValue
-    } else if (tagParamValue) {
-        navType = 'tag'
-        navValue = tagParamValue
-    } else if (searchParamValue) {
-        navType = 'search'
-        navValue = searchParamValue
+    const filters = {
+        category: searchParams.getAll('category'),
+        brand: searchParams.getAll('brand'),
+        color: searchParams.getAll('color'),
+        price: searchParams.get('price'),
+        discount: searchParams.getAll('discount'),
+        rating: searchParams.getAll('ratings'),
+        tag: searchParams.getAll('tag'),
     }
-    let filters = {
-        category: '',
-        brand: '',
-        promo: '',
-        search: '',
-        tag: ''
-    }
-    const filteredProducts = ProductListHelper.getFilteredProducts(products, navType, navValue ? [navValue] : [], sortParamValue ? sortParamValue : '')
+    const filteredProducts = ProductListHelper.applyMultipleFilters(products.products, filters, sortParamValue ? sortParamValue : '')
+
     return {
         products: filteredProducts ?? [],
         numberOfProducts: filteredProducts?.length ?? 0,

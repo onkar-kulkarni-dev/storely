@@ -4,17 +4,19 @@ import Filters from '../../components/productListing/filters/Filters';
 import ProductListingHeader from '../../components/productListing/header/ProductListingHeader';
 import NoSearchFound from '../noSearchFound/NoSearchFound';
 import styles from './ProductListingPage.module.scss';
+import Products from '../../data/products.json';
 
 const ProductListingPage = () => {
 
     const { products, numberOfProducts, filters } = useProductQuery()
+    console.log(products)
 
     return (
         <div>
-            <ProductListingHeader numberOfProducts={numberOfProducts} fromProductCount={1} toProductCount={numberOfProducts}/>
+            <ProductListingHeader numberOfProducts={numberOfProducts} fromProductCount={1} toProductCount={numberOfProducts} />
             {numberOfProducts > 0 ? <div className={styles.contentContainer}>
                 <div className={styles.filterContainer}>
-                    <Filters products={products}/>
+                    <Filters products={Products.products} />
                 </div>
                 <div className={styles.productContainer}>
                     {products?.map((product: any) => {

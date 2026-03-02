@@ -16,8 +16,8 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ title, subtitle, ctaText, ctaLi
         <div className={styles.heroBanner}>
             <img src={imageUrl} alt="Hero Banner" className={styles.bannerImage} />
             <div className={styles.content}>
-                <h1>{title}</h1>
-                {subtitle && <p>{subtitle}</p>}
+                {/* <h1>{title}</h1> */}
+                {/* {subtitle && <p>{subtitle}</p>} */}
                 {ctaText && ctaLink && (
                     <Link to={`${ctaLink}?src=all_products`}><p className={styles.ctaButton}>
                         {ctaText}

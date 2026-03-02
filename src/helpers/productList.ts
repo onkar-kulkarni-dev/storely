@@ -68,7 +68,7 @@ const ProductListHelper = {
             }
 
             case "tag": {
-                const tagValue =  value?.[0]?.replace(' ', "")?.toLowerCase() ?? "";
+                const tagValue = value?.[0]?.replace(' ', "")?.toLowerCase() ?? "";
                 result = products.filter(item =>
                     (item?.tags ?? [])
                         .map(t => t.toLowerCase())
@@ -252,6 +252,50 @@ const ProductListHelper = {
                     return filter;
             }
         });
+    },
+    applyMultipleFilters(products: Product[], filters: any, sort: string) {
+        let result = [...products]
+        if (filters.tag?.length) {
+            const tagValue = filters.tag?.[0]?.replace(' ', "")?.toLowerCase() ?? "";
+            result = products.filter(item =>
+                (item?.tags ?? [])
+                    .map(t => t.toLowerCase())
+                    .includes(tagValue)
+            );
+        }
+        if (filters.category?.length) {
+            const set = new Set(filters.category.map((v: string) => v.toLowerCase()))
+            result = result.filter(p => set.has(p.subCategory?.toLowerCase() ?? ""))
+        }
+        if (filters.brand?.length) {
+            const set = new Set(filters.brand.map((v: string) => v.toLowerCase()))
+            result = result.filter(p => set.has(p.brand?.toLowerCase() ?? ""))
+        }
+        if (filters.color?.length) {
+            const set = new Set(filters.color.map((v: string) => v.toLowerCase()))
+            result = result.filter(p =>
+                (p.colorsAvailable ?? []).some(c => set.has(c.toLowerCase()))
+            )
+        }
+        if (filters.price) {
+            const maxPrice = Number(filters.price)
+            result = result.filter(
+                p => ProductListHelper.getEffectivePrice(p) <= maxPrice
+            )
+        }
+        if (filters.discount?.length) {
+            const minDiscount = Math.max(...filters.discount.map(Number))
+            result = result.filter(
+                p => (p.discountPercentage ?? 0) >= minDiscount
+            )
+        }
+        if (filters.rating?.length) {
+            const minRating = Math.max(...filters.rating.map(Number));
+            result = result.filter(
+                p => (p.rating ?? 0) >= minRating
+            );
+        }
+        return ProductListHelper.applySort(result, sort)
     }
 };
 
