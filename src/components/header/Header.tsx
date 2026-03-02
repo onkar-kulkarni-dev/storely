@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 // import { CiLocationOn } from "react-icons/ci";
 import Products from '../../data/products.json';
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StorelyLogo from "../../assets/storely.png"
 
@@ -18,10 +18,12 @@ const Header = () => {
     const searchValue = searchParams.get("search");
 
     const inputRef = useRef<HTMLInputElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any>([]);
     const [isUserTyping, setIsUserTyping] = useState(false);
+    const [showProfileModal, setShowProfileModal] = useState(false);
 
     const cartItems = useSelector((state: any) => state.cart.items);
 
@@ -50,6 +52,23 @@ const Header = () => {
             setResults([]);
         }
     }, [query]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target as Node)
+            ) {
+                setShowProfileModal(false);
+            }
+        };
+        if (showProfileModal) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showProfileModal]);
 
     const openCart = () => {
         navigation('/cart')
@@ -106,7 +125,13 @@ const Header = () => {
                 </div>}
             </div>
             <div className={styles.rightSection}>
-                <FaRegUser size={24} color="white" className={styles.icon} />
+                <div>
+                    <FaRegUser size={24} color="white" className={styles.icon} onClick={() => setShowProfileModal(!showProfileModal)} />
+                    {showProfileModal && <ul className={styles.profileDropdown} ref={modalRef}>
+                        <Link to=""><li onClick={() => setShowProfileModal(!showProfileModal)}>My Profile</li></Link>
+                        <Link to="/orders"><li onClick={() => setShowProfileModal(!showProfileModal)}>My Orders</li></Link>
+                    </ul>}
+                </div>
                 <FaRegHeart size={24} color="white" className={styles.icon} onClick={openWishlist} />
                 <div>
                     <FaShoppingCart size={24} color="white" className={styles.icon} onClick={openCart} />

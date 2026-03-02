@@ -1,0 +1,324 @@
+@use '../../common/UI/colors' as *;
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+
+    input {
+        height: 3rem;
+        border-radius: 8px;
+        outline: 1px solid $formInactiveBorder;
+        padding: 1rem;
+        ;
+    }
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+.statusContainer {
+    border-radius: 8px;
+    outline: 1px solid $formInactiveBorder;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    // padding: 10px 0;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+
+    .statusRow {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $formInactiveBorder;
+        cursor: pointer;
+        color: $greyText;
+        font-weight: 500;
+        height: 3rem;
+
+        .selectedTab {
+            background-color: #FDF8EE;
+            color: $electricOrange;
+            font-weight: 500;
+            border-bottom: 2px solid $electricOrange;
+            height: 3rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            padding: 0 15px;
+        }
+
+        .tab {
+            padding: 0 10px;
+        }
+
+        @media (max-width: 480px) {
+            height: 6rem;
+        }
+    }
+
+    .secondRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+        position: relative;
+
+        .orders {
+            color: $greyText;
+            font-weight: 600;
+
+            span {
+                font-weight: 400;
+            }
+        }
+
+        .filterBy {
+            color: $greyText;
+            display: flex;
+            gap: 0.5rem;
+
+            button {
+                color: $black;
+            }
+        }
+
+        .filterByBtn {
+            cursor: pointer;
+            outline: 1px solid $black;
+            width: fit-content;
+            border-radius: 4px;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0 10px;
+        }
+
+        .filterByModal {
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            position: absolute;
+            top: 52px;
+            right: 10px;
+            width: 10rem;
+            border-radius: 8px;
+            background: $textColor;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            height: 4rem;
+        }
+    }
+}
+
+.orderContainer {
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    background-color: $textColor;
+    margin-bottom: 20px;
+
+    .firstRow {
+        background-color: $lightBlue;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+
+        @media (max-width: 480px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .row {
+            display: flex;
+            gap: 2rem;
+            width: 115%;
+            justify-content: space-around;
+
+            p {
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 600;
+                color: $greyText;
+            }
+
+            .rowValues {
+                font-size: 14px;
+                font-weight: 600;
+                color: $black;
+            }
+
+            @media (max-width: 480px) {
+                justify-content: space-between;
+                width: 140%;
+            }
+        }
+
+        .rightSide {
+            display: flex;
+            flex-direction: column;
+            padding-right: 20px;
+            color: $greyText;
+            font-size: 14px;
+            font-weight: 600;
+
+            div {
+                display: flex;
+                justify-content: space-between;
+
+                @media (max-width: 480px) {
+                    gap: 0.5rem;
+                }
+
+                p {
+                    color: $skyBlue;
+                    cursor: pointer;
+                }
+            }
+
+            @media (max-width: 480px) {
+                flex-direction: row;
+                gap: 0.8rem;
+                justify-content: space-between;
+                width: 108%;
+            }
+        }
+    }
+}
+
+.secondRow {
+    padding: 20px;
+
+    .orderHeader {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: $black;
+        padding-bottom: 5px;
+
+        span {
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 8px;
+        }
+    }
+
+    .subTitle {
+        color: $greyText;
+        font-size: 14px;
+        font-weight: 400;
+        padding-bottom: 10px;
+    }
+
+    .contentContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        @media (max-width:480px) {
+            flex-direction: column;
+        }
+
+        .products {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .productContainer {
+            display: flex;
+            gap: 1rem;
+
+            .productImg {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+
+            .productName {
+                font-size: 16px;
+                font-weight: 600;
+                color: $black;
+            }
+
+            .qty {
+                font-size: 14px;
+                font-weight: 500;
+                color: $greyText;
+            }
+
+            .price {
+                font-size: 16px;
+                font-weight: 600;
+                color: $black;
+
+                span {
+                    color: $greyText;
+                    font-size: 14px;
+                    text-decoration: line-through;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .btnContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+
+            @media (max-width: 480px) {
+                flex-direction: row;
+                justify-content: space-between;
+                padding-top: 15px;
+            }
+
+            button {
+                // height: 3rem;
+                border-radius: 8px;
+                outline: 1px solid $formInactiveBorder;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+                padding: 10px 15px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.noOrderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $textColor;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+    outline: 1px solid $formInactiveBorder;
+    padding: 1rem;
+    gap: 1rem;
+
+    p {
+        color: $greyText;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    button {
+        cursor: pointer;
+        height: 2rem;
+        padding: 0 10px;
+        border-radius: 8px;
+        outline: 1px solid $formInactiveBorder;
+    }
+}

@@ -1,0 +1,108 @@
+{
+    "orders": [
+        {
+            "id": 1,
+            "orderId": "ORD-923-678343",
+            "orderTotal": 220291,
+            "orderPlaced": "",
+            "status": "processing",
+            "items": [
+                {
+                    "id": 1,
+                    "productName": "Boat Watch Xtend 1085",
+                    "qty": 1,
+                    "productImg": "https://placehold.co/400x400?text=Boat%20Watch%20Xtend%201085",
+                    "price": 18756,
+                    "specialPrice": 13504
+                },
+                {
+                    "id": 2,
+                    "productName": "Samsung Galaxy Tab S9 Prime (8GB RAM, 128GB)",
+                    "qty": 2,
+                    "productImg": "https://placehold.co/400x400?text=Samsung%20Galaxy%20Tab%20S9%20Prime%20(8GB%20RAM%2C%20128GB)",
+                    "price": 92472,
+                    "specialPrice": 87848
+                },
+                {
+                    "id": 3,
+                    "productName": "Sony PlayStation 5 9463",
+                    "qty": 1,
+                    "productImg": "https://placehold.co/400x400?text=Sony%20PlayStation%205%209463",
+                    "price": 31091,
+                    "specialPrice": 20209
+                }
+            ],
+            "returnEligible": true,
+            "expectedDelivery": "",
+            "returnWinow": ""
+        },
+        {
+            "id": 2,
+            "orderId": "ORD-982-140291",
+            "orderTotal": 181530,
+            "orderPlaced": "",
+            "status": "Delivered",
+            "items": [
+                {
+                    "id": 1,
+                    "productName": "Apple iPhone 16 Neo (12GB RAM, 512GB)",
+                    "qty": 2,
+                    "productImg": "https://placehold.co/400x400?text=Apple%20iPhone%2016%20Neo%20(12GB%20RAM%2C%20512GB)",
+                    "price": 98658,
+                    "specialPrice": 90765
+                }
+            ],
+            "returnEligible": true,
+            "expectedDelivery": "",
+            "returnWinow": ""
+        },
+        {
+            "id": 3,
+            "orderId": "ORD-343-789793",
+            "orderTotal": 87865,
+            "orderPlaced": "05/09/2024",
+            "status": "returned",
+            "items": [
+                {
+                    "id": 1,
+                    "productName": "NIKON Z9-BODY Mirrorless Camera 4367",
+                    "qty": 1,
+                    "productImg": "https://placehold.co/400x400?text=NIKON%20Z9-BODY%20Mirrorless%20Camera%204367",
+                    "price": 20466,
+                    "specialPrice": 13917
+                },
+                {
+                    "id": 2,
+                    "productName": "Canon EOS R3 Mirrorless Camera  3451",
+                    "qty": 2,
+                    "productImg": "https://placehold.co/400x400?text=Canon%20EOS%20R3%20Mirrorless%20Camera%20%203451",
+                    "price": 40631,
+                    "specialPrice": 36974
+                }
+            ],
+            "returnEligible": false,
+            "expectedDelivery": "",
+            "returnWinow": ""
+        },
+        {
+            "id": 4,
+            "orderId": "ORD-234-009438",
+            "orderTotal": 20988,
+            "orderPlaced": "15/08/2023",
+            "status": "cancelled",
+            "items": [
+                {
+                    "id": 1,
+                    "productName": "Oppo Enco Buds 2 8504",
+                    "qty": 1,
+                    "productImg": "https://placehold.co/400x400?text=Oppo%20Enco%20Buds%202%208504",
+                    "price": 25287,
+                    "specialPrice": 20988
+                }
+            ],
+            "returnEligible": false,
+            "expectedDelivery": "",
+            "returnWinow": ""
+        }
+    ]
+}

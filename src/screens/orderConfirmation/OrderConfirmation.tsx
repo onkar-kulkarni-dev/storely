@@ -14,7 +14,8 @@ const OrderConfirmation = () => {
     const shippingDetailsSelector = useSelector((state: any) => state?.checkout)
 
     const openOrderHistory = () => {
-        // dispatch(clearCheckoutDetails())
+        dispatch(clearCheckoutDetails())
+        navigate('/orders')
     }
 
     const continueShopping = () => {
