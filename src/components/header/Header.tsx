@@ -18,7 +18,7 @@ const Header = () => {
     const searchValue = searchParams.get("search");
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const modalRef = useRef<HTMLDivElement>(null);
+    const modalRef = useRef<HTMLUListElement>(null);
 
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<any>([]);
