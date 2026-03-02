@@ -1,26 +1,41 @@
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import ProductListHelper from "../../helpers/productList";
-import Products from '../../data/products.json';
+import Products from "../../data/products.json";
 
 export const useProductQuery = () => {
     const location = useLocation();
-    const products = Products ?? {}
-    const searchParams = new URLSearchParams(location.search)
-    const sortParamValue = searchParams.get('sort')
+    const searchParams = new URLSearchParams(location.search);
+
     const filters = {
-        category: searchParams.getAll('category'),
-        brand: searchParams.getAll('brand'),
-        color: searchParams.getAll('color'),
-        price: searchParams.get('price'),
-        discount: searchParams.getAll('discount'),
-        rating: searchParams.getAll('ratings'),
-        tag: searchParams.getAll('tag'),
-    }
-    const filteredProducts = ProductListHelper.applyMultipleFilters(products.products, filters, sortParamValue ? sortParamValue : '')
+        category: searchParams.getAll("category"),
+        brand: searchParams.getAll("brand"),
+        color: searchParams.getAll("color"),
+        price: searchParams.get("price"),
+        discount: searchParams.getAll("discount"),
+        rating: searchParams.getAll("ratings"),
+
+        /* route dataset selectors */
+        tag: searchParams.getAll("tag"),
+        search: searchParams.getAll("search"),
+        promo: searchParams.getAll("promo")
+    };
+
+    const sort = searchParams.get("sort") || "";
+
+    /* STEP 1 — get base dataset from route */
+    const baseProducts = ProductListHelper.getBaseProducts(Products, filters);
+
+    /* STEP 2 — apply sidebar filters */
+    const refinedProducts = ProductListHelper.applySidebarFilters(
+        baseProducts,
+        filters
+    );
+
+    /* STEP 3 — apply sort */
+    const finalProducts = ProductListHelper.applySort(refinedProducts, sort);
 
     return {
-        products: filteredProducts ?? [],
-        numberOfProducts: filteredProducts?.length ?? 0,
-        filters: []
-    }
-}
+        products: finalProducts,
+        numberOfProducts: finalProducts.length
+    };
+};

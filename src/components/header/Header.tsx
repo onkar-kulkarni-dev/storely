@@ -72,7 +72,7 @@ const Header = () => {
     const openPLP = (e: any) => {
         e.preventDefault();
         if (query.length > 0) {
-            navigation(`/products?search=${query}`)
+            navigation(`/products?search=${query}&src=${query}`)
             setQuery('')
             setResults([])
             inputRef?.current?.blur()

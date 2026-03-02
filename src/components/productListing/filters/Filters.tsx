@@ -9,6 +9,7 @@ type Props = {
 };
 
 const Filters: React.FC<Props> = ({ products }) => {
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     const filtersData = ProductListHelper.getDynamicFilters(products);
@@ -29,11 +30,16 @@ const Filters: React.FC<Props> = ({ products }) => {
         return searchParams.getAll(key).includes(String(value));
     };
 
-    const updateFilter = (
-        key: string,
-        type: string,
-        value: string | number
-    ) => {
+    const updateSearchParamsSafely = (params: URLSearchParams) => {
+        const newSearch = params.toString();
+        const currentSearch = window.location.search.replace(/^\?/, "");
+
+        if (newSearch !== currentSearch) {
+            setSearchParams(params, { replace: true });
+        }
+    };
+
+    const updateFilter = (key: string, type: string, value: string | number) => {
         const params = new URLSearchParams(searchParams);
 
         if (type === "checkbox") {
@@ -52,20 +58,47 @@ const Filters: React.FC<Props> = ({ products }) => {
             params.set(key, String(value));
         }
 
-        setSearchParams(params);
+        updateSearchParamsSafely(params);
     };
 
     const updatePrice = (value: number) => {
         setPrice(value);
+
         const params = new URLSearchParams(searchParams);
         params.set("price", String(value));
-        setSearchParams(params);
+
+        updateSearchParamsSafely(params);
     };
 
-    /* ---------------- UI ---------------- */
+    const clearAllFilters = () => {
+        const params = new URLSearchParams(searchParams);
+
+        const src = params.get("src");
+        if (!src) return;
+
+        const newParams = new URLSearchParams();
+
+        // always keep src
+        newParams.set("src", src);
+
+        // find which param contains src value
+        for (const [key, value] of params.entries()) {
+            if (key === "src") continue;
+
+            if (value === src) {
+                newParams.append(key, value);
+            }
+        }
+
+        setSearchParams(newParams);
+    };
 
     return (
         <div className={styles.container}>
+            <div className={styles.headerContainer}>
+                <p className={styles.filtersTitle}>Filters</p>
+                <p className={styles.clearAll} onClick={clearAllFilters}>Clear All</p>
+            </div>
             {filtersData.map((filter: any) => (
                 <div key={filter.label}>
                     <p className={styles.filterType}>{filter.label}</p>

@@ -211,7 +211,7 @@ const ProductListHelper = {
                 ).length;
 
                 return {
-                    label: `${option.label}${count ? ` (${count})` : ""}`,
+                    label: option.label,
                     value: option.value,
                     count,
                     disabled: count === 0
@@ -254,49 +254,154 @@ const ProductListHelper = {
         });
     },
     applyMultipleFilters(products: Product[], filters: any, sort: string) {
-        let result = [...products]
+        let result = [...products];
+
+        /* ---------- TAG ---------- */
         if (filters.tag?.length) {
-            const tagValue = filters.tag?.[0]?.replace(' ', "")?.toLowerCase() ?? "";
-            result = products.filter(item =>
+            const tagValue = filters.tag[0]?.replace(' ', "")?.toLowerCase() ?? "";
+            result = result.filter(item =>
                 (item?.tags ?? [])
                     .map(t => t.toLowerCase())
                     .includes(tagValue)
             );
         }
+
+        /* ---------- CATEGORY ---------- */
         if (filters.category?.length) {
-            const set = new Set(filters.category.map((v: string) => v.toLowerCase()))
-            result = result.filter(p => set.has(p.subCategory?.toLowerCase() ?? ""))
+            const set = new Set(filters.category.map((v: string) => v.toLowerCase()));
+            result = result.filter(p => set.has(p.subCategory?.toLowerCase() ?? ""));
         }
+
+        /* ---------- BRAND ---------- */
         if (filters.brand?.length) {
-            const set = new Set(filters.brand.map((v: string) => v.toLowerCase()))
-            result = result.filter(p => set.has(p.brand?.toLowerCase() ?? ""))
+            const set = new Set(filters.brand.map((v: string) => v.toLowerCase()));
+            result = result.filter(p => set.has(p.brand?.toLowerCase() ?? ""));
         }
+
+        /* ---------- COLOR ---------- */
         if (filters.color?.length) {
-            const set = new Set(filters.color.map((v: string) => v.toLowerCase()))
+            const set = new Set(filters.color.map((v: string) => v.toLowerCase()));
             result = result.filter(p =>
                 (p.colorsAvailable ?? []).some(c => set.has(c.toLowerCase()))
-            )
+            );
         }
+
+        /* ---------- PRICE ---------- */
         if (filters.price) {
-            const maxPrice = Number(filters.price)
+            const maxPrice = Number(filters.price);
             result = result.filter(
                 p => ProductListHelper.getEffectivePrice(p) <= maxPrice
-            )
+            );
         }
+
+        /* ---------- DISCOUNT ---------- */
         if (filters.discount?.length) {
-            const minDiscount = Math.max(...filters.discount.map(Number))
+            const minDiscount = Math.max(...filters.discount.map(Number));
             result = result.filter(
                 p => (p.discountPercentage ?? 0) >= minDiscount
-            )
+            );
         }
+
+        /* ---------- RATING ---------- */
         if (filters.rating?.length) {
             const minRating = Math.max(...filters.rating.map(Number));
             result = result.filter(
                 p => (p.rating ?? 0) >= minRating
             );
         }
-        return ProductListHelper.applySort(result, sort)
-    }
+
+        /* ---------- SEARCH ---------- */
+        if (filters.search?.length) {
+            const input = filters.search[0]?.replace(/%20/g, " ").toLowerCase() ?? "";
+
+            result = result.filter(item => {
+                return (
+                    item?.title?.toLowerCase().includes(input) ||
+                    item?.brand?.toLowerCase().includes(input) ||
+                    item?.subCategory?.toLowerCase().includes(input) ||
+                    item?.slug?.replace(/-/g, " ").toLowerCase().includes(input)
+                );
+            });
+        }
+
+        return ProductListHelper.applySort(result, sort);
+    },
+    applySidebarFilters(products: Product[], filters: any): Product[] {
+        let result = [...products];
+
+        if (filters.category?.length) {
+            const set = new Set(filters.category.map((v: string) => v.toLowerCase()));
+            result = result.filter(p => set.has(p.subCategory?.toLowerCase() ?? ""));
+        }
+
+        if (filters.brand?.length) {
+            const set = new Set(filters.brand.map((v: string) => v.toLowerCase()));
+            result = result.filter(p => set.has(p.brand?.toLowerCase() ?? ""));
+        }
+
+        if (filters.color?.length) {
+            const set = new Set(filters.color.map((v: string) => v.toLowerCase()));
+            result = result.filter(p =>
+                (p.colorsAvailable ?? []).some(c => set.has(c.toLowerCase()))
+            );
+        }
+
+        if (filters.price) {
+            const maxPrice = Number(filters.price);
+            result = result.filter(
+                p => ProductListHelper.getEffectivePrice(p) <= maxPrice
+            );
+        }
+
+        if (filters.discount?.length) {
+            const minDiscount = Math.max(...filters.discount.map(Number));
+            result = result.filter(
+                p => (p.discountPercentage ?? 0) >= minDiscount
+            );
+        }
+
+        if (filters.rating?.length) {
+            const minRating = Math.max(...filters.rating.map(Number));
+            result = result.filter(p => (p.rating ?? 0) >= minRating);
+        }
+
+        return result;
+    },
+    getBaseProducts(data: ProductData, filters: any): Product[] {
+        let result = data?.products ?? [];
+
+        if (filters.tag?.length) {
+            const tag = filters.tag[0].replace(" ", "").toLowerCase();
+            result = result.filter(p =>
+                (p.tags ?? []).map(t => t.toLowerCase()).includes(tag)
+            );
+        }
+
+        if (filters.search?.length) {
+            const input = filters.search[0].toLowerCase();
+            result = result.filter(item =>
+                item?.title?.toLowerCase().includes(input) ||
+                item?.brand?.toLowerCase().includes(input) ||
+                item?.subCategory?.toLowerCase().includes(input) ||
+                item?.slug?.replace(/-/g, " ").toLowerCase().includes(input)
+            );
+        }
+
+        if (filters.promo?.length) {
+            const promo = data?.promotions?.find(
+                p => p.id.toLowerCase() === filters.promo[0].toLowerCase()
+            );
+
+            const categories = promo?.applicableSubCategories ?? [];
+            const set = new Set(categories.map((c: string) => c.toLowerCase()));
+
+            result = result.filter(p =>
+                set.has(p.subCategory?.toLowerCase() ?? "")
+            );
+        }
+
+        return result;
+    },
 };
 
 export default ProductListHelper;

@@ -21,7 +21,6 @@ const ProductDetails = () => {
         original: img,
         thumbnail: img,
     }));
-    console.log(productData)
     return (
         <div>
             {productData?.length === 0 ? <NoSearchFound />

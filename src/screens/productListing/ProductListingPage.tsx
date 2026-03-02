@@ -8,25 +8,21 @@ import Products from '../../data/products.json';
 
 const ProductListingPage = () => {
 
-    const { products, numberOfProducts, filters } = useProductQuery()
-    console.log(products)
+    const { products, numberOfProducts } = useProductQuery()
 
     return (
         <div>
             <ProductListingHeader numberOfProducts={numberOfProducts} fromProductCount={1} toProductCount={numberOfProducts} />
-            {numberOfProducts > 0 ? <div className={styles.contentContainer}>
+            <div className={styles.contentContainer}>
                 <div className={styles.filterContainer}>
                     <Filters products={Products.products} />
                 </div>
-                <div className={styles.productContainer}>
+                {numberOfProducts > 0 ? <div className={styles.productContainer}>
                     {products?.map((product: any) => {
                         return <ProductCard product={product} />
                     })}
-                </div>
-            </div> :
-                <NoSearchFound />
-            }
-
+                </div> : <NoSearchFound />}
+            </div>
         </div>
     )
 }

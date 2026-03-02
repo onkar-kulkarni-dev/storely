@@ -11,7 +11,7 @@ interface HeroBannerProps {
     imageUrl: string;
 }
 
-const HeroBanner: React.FC<HeroBannerProps> = ({ title, subtitle, ctaText, ctaLink, imageUrl }) => {
+const HeroBanner: React.FC<HeroBannerProps> = ({ ctaText, ctaLink, imageUrl }) => {
     return (
         <div className={styles.heroBanner}>
             <img src={imageUrl} alt="Hero Banner" className={styles.bannerImage} />

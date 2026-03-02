@@ -171,3 +171,23 @@
         border-color: white;
     }
 }
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+
+    .filtersTitle {
+        color: $black;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .clearAll {
+        color: $skyBlue;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
