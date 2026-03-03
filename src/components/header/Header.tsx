@@ -120,7 +120,7 @@ const Header = () => {
                 </form>
                 {isUserTyping && results?.length > 0 && <div className={styles.autoSuggestionsContainer}>
                     {results.map((item: any) => (
-                        <p key={item.id} onClick={() => openItem(item)}>{item.title}</p>
+                        <p key={item.id} onMouseDown={() => openItem(item)}>{item.title}</p>
                     ))}
                 </div>}
             </div>
