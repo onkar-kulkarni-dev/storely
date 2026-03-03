@@ -17,11 +17,12 @@ import NoSearchFound from "../../screens/noSearchFound/NoSearchFound";
 import ProductDetails from "../../screens/productDetail/ProductDetails";
 import ProductListingPage from "../../screens/productListing/ProductListingPage";
 import OrderHistory from "../../screens/ordersHistory/OrderHistory";
+import MyProfile from "../../screens/myProfile/MyProfile";
 
 const CustomRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Navigate to="/auth" replace />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/auth/reg" element={<AuthReg />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
@@ -39,6 +40,7 @@ const CustomRoutes = () => {
             <Route path="/no-results" element={<NoSearchFound />} />
             <Route path="/products" element={<ProductListingPage />} />
             <Route path="/orders" element={<OrderHistory />} />
+            <Route path="/my-profile" element={<MyProfile />} />
 
             <Route path="*" element={<PageNotFound />} />
         </Routes>

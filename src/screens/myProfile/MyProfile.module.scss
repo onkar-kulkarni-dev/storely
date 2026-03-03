@@ -1,0 +1,278 @@
+@use '../../common/UI/colors' as *;
+
+.container {
+    border-radius: 8px;
+    outline: 1px solid $formInactiveBorder;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    padding: 1rem;
+
+    .settings {
+        color: $skyBlue;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 600;
+        color: $black;
+    }
+
+    .subTitle {
+        color: $greyText;
+    }
+}
+
+.profileDetails {
+    display: flex;
+    justify-content: space-between;
+    background-color: $lightBlue;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    align-items: center;
+
+    .leftSide {
+        display: flex;
+        gap: 1.5rem;
+
+        .profileImgContainer {
+            position: relative;
+
+            .profileIcon {
+                outline: 5px solid $textColor;
+                border-radius: 100px;
+                padding: 2px;
+            }
+
+            .editImage {
+                position: absolute;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 100px;
+                background-color: $skyBlue;
+                color: $textColor;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 55px;
+                right: -5px;
+                outline: 5px solid $textColor;
+                cursor: pointer;
+            }
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: 600;
+            color: $black;
+        }
+
+        .email {
+            color: $greyText;
+        }
+
+        .tagContainer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            text-transform: capitalize;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+
+            .verifiedAccount {
+                padding: 2px 10px;
+                outline: 1px solid $formInactiveBorder;
+                border-radius: 8px;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+                background-color: $textColor;
+                color: $greyText;
+            }
+
+            .proMember {
+                padding: 2px 10px;
+                outline: 1px solid $skyBlue;
+                border-radius: 8px;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+                background-color: $lightBlue;
+                color: $skyBlue;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.editProfileBtn {
+    height: 2rem;
+    padding: 3px 10px;
+    border-radius: 8px;
+    background-color: $textColor;
+    outline: 1px solid $formInactiveBorder;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: $black;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
+
+    label {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        color: $greyText;
+    }
+
+    .label {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        color: $greyText;
+    }
+
+    .radioContainer {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding-top: 10px;
+
+        label {
+            font-weight: 400;
+            color: $black;
+        }
+    }
+
+    .input {
+        height: 2.5rem;
+        color: $black;
+        padding: 2px 10px;
+        margin-bottom: 10px;
+        outline: 1px solid $formInactiveBorder;
+        border-radius: 8px;
+        width: 15rem;
+        margin-left: 10px;
+        padding-left: 25px;
+    }
+
+    .disabledInput {
+        height: 2rem;
+        color: $greyText;
+        padding: 2px 10px;
+        margin-bottom: 10px;
+        width: 15rem;
+        margin-left: 10px;
+    }
+
+    .inputBox {
+        position: relative;
+
+        .icon {
+            position: absolute;
+            top: 7px;
+        }
+
+        .editIcon {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+        }
+    }
+
+    .error {
+        color: $formError;
+        font-size: 12px;
+        margin-left: 10px;
+        display: block;
+    }
+}
+
+.hrLine {
+    border-bottom: 1px solid $formInactiveBorder;
+    margin: 1rem 0;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .cancelBtn {
+        height: 2rem;
+        padding: 3px 10px;
+        cursor: pointer;
+        outline: 1px solid $formInactiveBorder;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        border-radius: 8px;
+        color: $greyText;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .saveChangesBtn {
+        height: 2rem;
+        padding: 3px 10px;
+        cursor: pointer;
+        // outline: 1px solid $blue;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        border-radius: 8px;
+        color: $textColor;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: $skyBlue;
+    }
+}
+
+h3{
+        padding-bottom: 1rem;
+        color: $black;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+.footerLinkContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    li {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 500;
+        color: $greyText;
+    }
+
+    // li:hover {
+    //     background-color: $skyBlue;
+    //     color: $textColor;
+    //     padding: 1rem 0;
+    //     border-radius: 16px;
+    // }
+
+    .logout {
+        color: $formError;
+    }
+
+    .hrLine {
+        border-bottom: 1px solid $formInactiveBorder;
+    }
+}

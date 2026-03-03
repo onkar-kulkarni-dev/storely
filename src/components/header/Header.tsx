@@ -128,7 +128,8 @@ const Header = () => {
                 <div>
                     <FaRegUser size={24} color="white" className={styles.icon} onClick={() => setShowProfileModal(!showProfileModal)} />
                     {showProfileModal && <ul className={styles.profileDropdown} ref={modalRef}>
-                        <Link to=""><li onClick={() => setShowProfileModal(!showProfileModal)}>My Profile</li></Link>
+                        <Link to="/auth"><li onClick={() => setShowProfileModal(!showProfileModal)}>Log In</li></Link>
+                        <Link to="/my-profile"><li onClick={() => setShowProfileModal(!showProfileModal)}>My Profile</li></Link>
                         <Link to="/orders"><li onClick={() => setShowProfileModal(!showProfileModal)}>My Orders</li></Link>
                     </ul>}
                 </div>
